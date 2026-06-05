@@ -2,31 +2,8 @@
 {% from "_components.html" import kpi_grid, insight_card, chart_card %}
 
 {% block content %}
-<section class="hero-overview">
-    <div class="hero-copy">
-        <span class="tag">Business case</span>
-        <h2>Which insurance segment deserves priority?</h2>
-        <p>
-            Dashboard ini dibuat untuk membantu manajemen memahami area portofolio yang paling potensial
-            berdasarkan performa bisnis: kontribusi premi, profit underwriting, tingkat klaim, dan
-            stabilitas risiko. Fokus utamanya adalah mencari segmen yang bisa di-scale-up tanpa mengorbankan profitabilitas AXA.
-        </p>
-        <div class="hero-actions">
-            <a href="{{ url_for('segments') }}" class="btn-primary">Lihat prioritas segmen</a>
-            <a href="{{ url_for('strategy') }}" class="btn-secondary">Lihat rekomendasi</a>
-        </div>
-    </div>
-    <div class="hero-decision-card">
-        <span>Recommended focus</span>
-        <strong>{{ snapshot.top_cob.name }}</strong>
-        <p>{{ snapshot.top_cob.label }} · score {{ snapshot.top_cob.score }}</p>
-        <div class="mini-metrics">
-            <div><small>Margin</small><b>{{ snapshot.top_cob.margin_pct }}</b></div>
-            <div><small>Loss ratio</small><b>{{ snapshot.top_cob.loss_ratio }}</b></div>
-            <div><small>GWP share</small><b>{{ snapshot.top_cob.gwp_share }}</b></div>
-        </div>
-    </div>
-</section>
+
+    
 
 <!-- KPI AGREGAT -->
 {{ kpi_grid(kpis) }}
