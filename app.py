@@ -375,33 +375,62 @@ def interpretation(title, body, action=None):
 
 
 @app.route("/")
-@app.route("/")
 def overview():
     ctx = get_common_context("overview")
     s = ctx["snapshot"]
-    cob = ctx["data"]["cob"] # Mengambil data frame COB
+    cob = ctx["data"]["cob"]
     
-    # --- 1. BUAT CHART: GWP Contribution (Pie Chart) ---
-    fig_pie = px.pie(
-        cob, values='GWP_CONTRIBUTION_PCT', names='COB', hole=0.4,
-        color_discrete_sequence=COLOR_SEQUENCE
-    )
-    # Hapus legend agar lebih bersih, tambahkan teks di dalam pie
-    fig_pie.update_traces(textposition='inside', textinfo='percent+label')
-    pie_chart_json = plot_to_json(fig_pie, height=380)
+    # 1. DEFINISIKAN NILAI DEFAULT
+    pie_chart_json = None
+    bar_chart_json = None
     
-    # --- 2. BUAT CHART: GWP vs Gross Claims (Bar Chart) ---
-    fig_bar = go.Figure()
-    fig_bar.add_trace(go.Bar(x=cob['COB'], y=cob['GWP']/1e9, name='Gross Premium (Milyar)', marker_color=AXA_NAVY))
-    fig_bar.add_trace(go.Bar(x=cob['COB'], y=cob['GROSS_CLAIMS']/1e9, name='Gross Claims (Milyar)', marker_color=AXA_RED))
-    fig_bar.update_layout(
-        barmode='group', 
-        xaxis_title="", 
-        yaxis_title="IDR (Milyar)",
-        legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5)
-    )
-    bar_chart_json = plot_to_json(fig_bar, height=380)
+    # 2. LOGIKA PEMBUATAN CHART
+    if not cob.empty:
+        # Pie Chart (sekarang menjadi Bar Chart sesuai permintaanmu)
+        fig_pie = px.bar(
+            cob.sort_values('GWP_CONTRIBUTION_PCT', ascending=True), 
+            x='GWP_CONTRIBUTION_PCT', y='COB', orientation='h',
+            color_discrete_sequence=['#000080']
+        )
+        pie_chart_json = plot_to_json(fig_pie, height=380)
+        
+        # Bar Chart (Clustered)
+        fig_bar = go.Figure()
+        fig_bar.add_trace(go.Bar(x=cob['COB'], y=cob['GWP']/1e9, name='Gross Premium', marker_color='#000080'))
+        fig_bar.add_trace(go.Bar(x=cob['COB'], y=cob['GROSS_CLAIMS']/1e9, name='Gross Claims', marker_color='#FF1721'))
+        bar_chart_json = plot_to_json(fig_bar, height=380)
 
+    # 3. UPDATE CONTEXT (Sekarang variabel sudah pasti ada)
+    ctx.update({
+        "page_title": "Executive Overview",
+        "pie_chart": pie_chart_json,
+        "bar_chart": bar_chart_json,
+        # ... sisa kodinganmu
+    })
+    return render_template("overview.html", **ctx)    
+    # --- 2. BUAT CHART: GWP vs Gross Claims (Bar Chart) ---
+    # --- 2. REVISI MENJADI CLUSTERED BAR CHART ---
+    fig_bar = go.Figure()
+
+    # Menambahkan trace untuk GWP
+    fig_bar.add_trace(go.Bar(
+        x=cob['COB'], y=cob['GWP']/1e9, 
+        name='Gross Premium', marker_color='#000080' # Navy AXA
+    ))
+
+    # Menambahkan trace untuk Gross Claims
+    fig_bar.add_trace(go.Bar(
+        x=cob['COB'], y=cob['GROSS_CLAIMS']/1e9, 
+        name='Gross Claims', marker_color='#FF1721' # Merah AXA
+    ))
+
+    fig_bar.update_layout(
+        barmode='group', # Ini yang membuat menjadi Clustered
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=False),
+        yaxis=dict(showgrid=True, gridcolor='#e0e0e0'),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
     ctx.update({
         "page_title": "Executive Overview",
         "page_subtitle": "Ringkasan performa portofolio secara keseluruhan untuk menentukan kesehatan bisnis AXA sebelum membedah prioritas segmen.",

@@ -1,32 +1,32 @@
 {% extends "base.html" %}
-{% from "_components.html" import kpi_grid, insight_card, chart_card %}
+{% from "_components.html" import kpi_grid, insight_card %}
 
 {% block content %}
 
+<div class="kpi-container">
+    {{ kpi_grid(kpis) }}
+</div>
+
+<section class="chart-grid two" style="margin-top: 32px; margin-bottom: 40px;">
     
-
-<!-- KPI AGREGAT -->
-{{ kpi_grid(kpis) }}
-
-<!-- BAGIAN GRAFIK BARU (PIE & BAR) -->
-<section class="chart-grid two" style="margin-top: 32px; margin-bottom: 16px;">
     <div class="chart-card">
-        <h3 class="chart-title" style="font-size: 18px;">GWP Contribution (%)</h3>
-        <p style="color: var(--muted); font-size: 13px; margin-bottom: 8px;">Porsi distribusi skala bisnis portofolio per segmen.</p>
-        <div id="pieChart"></div>
+        <h3 class="viz-title">GWP Contribution (%)</h3>
+        <p class="viz-subtitle">Porsi distribusi skala bisnis portofolio per segmen.</p>
+        <div id="pieChart" style="height: 250px;"></div>
     </div>
+
     <div class="chart-card">
-        <h3 class="chart-title" style="font-size: 18px;">GWP vs Gross Claims</h3>
-        <p style="color: var(--muted); font-size: 13px; margin-bottom: 8px;">Komparasi pendapatan premi kotor vs beban klaim riil.</p>
-        <div id="barChart"></div>
+        <h3 class="viz-title">GWP vs Gross Claims</h3>
+        <p class="viz-subtitle">Komparasi pendapatan premi kotor vs beban klaim riil.</p>
+        <div id="barChart" style="height: 250px;"></div>
     </div>
+
 </section>
 
-<!-- KESIMPULAN / NARASI PRESENTASI -->
-<section class="section split-section">
-    <div>
+<section class="section split-section" style="padding-top: 20px;">
+    <div class="insight-intro">
         <p class="eyebrow">Decision snapshot</p>
-        <h2>Inti hasil analisis</h2>
+        <h2 class="section-heading">Inti hasil analisis</h2>
         <p class="section-lead">Tiga pesan utama (Business Storyline) yang dapat langsung dieksekusi oleh manajemen AXA.</p>
     </div>
     <div class="insight-grid">
@@ -36,12 +36,38 @@
     </div>
 </section>
 
+<!-- CSS DITULIS SEKALI SAJA DI SINI -->
+<style>
+    .viz-title {
+        font-size: 2.5rem !important; 
+        font-weight: 800; 
+        color: #07143F;
+        margin-bottom: 5px;
+        border-left: 5px solid #FF1721;
+        padding-left: 15px;
+        letter-spacing: -0.5px;
+    }
+    .viz-subtitle {
+        color: #667085;
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+        padding-left: 16px;
+    }
+    .chart-card {
+        background: #fff;
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid #eef0f3;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+</style>
+
 {% endblock %}
 
-<!-- SCRIPT UNTUK MERENDER GRAFIK DARI FLASK -->
 {% block scripts %}
 <script>
     const config = {responsive: true, displayModeBar: false};
+    // Pastikan variabel ini terdefinisi dengan benar di app.py
     const pie = {{ pie_chart | safe }};
     const bar = {{ bar_chart | safe }};
     
