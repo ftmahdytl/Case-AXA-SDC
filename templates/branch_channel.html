@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% from "_components.html" import interpretation_box, chart_card %}
 {% block content %}
-<section class="decision-strip" style="margin-top: 40px;">
+<section class="decision-strip" style="margin-top: 20px;">
     {% if snapshot.top_branch %}<div><span>Top BranchCELLA
         
     </span><strong>{{ snapshot.top_branch.name }}</strong><p>{{ snapshot.top_branch.label }} · Score {{ snapshot.top_branch.score }}</p></div>{% endif %}
