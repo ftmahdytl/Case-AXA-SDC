@@ -1,19 +1,251 @@
 {% extends "base.html" %}
 {% from "_components.html" import interpretation_box, chart_card %}
+
 {% block content %}
-<section class="section chart-with-note">
-    {{ chart_card('cobBranchChart') }}
-    {{ interpretation_box(cross_interpretation) }}
-</section>
-<section class="chart-grid two">
-    {{ chart_card('cobChannelChart') }}
-    {{ chart_card('mixChart') }}
-</section>
-<section class="section business-note">
-    <h2>How to use this opportunity map</h2>
-    <p>Halaman ini membantu client memilih area implementasi: segmen mana, lewat branch mana, dan channel mana. Untuk presentasi, gunakan ini sebagai shortlist untuk ekspansi atau pilot action.</p>
-</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SINGLE NARRATIVE HEADER — ringkas, no double section
+════════════════════════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TOP WINNER CARDS — 2 kolom, clean
+════════════════════════════════════════════════════════════ -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+
+  <!-- Top COB x Branch -->
+  <div style="background:white;border:1px solid var(--line);border-radius:20px;
+              padding:28px 32px;box-shadow:0 4px 20px rgba(0,0,143,.08);
+              border-left:6px solid var(--axa-blue)">
+    <div style="font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+                color:var(--axa-blue);margin-bottom:14px">Best COB × Branch</div>
+    <div style="font-size:32px;font-weight:900;color:var(--navy);letter-spacing:-.03em;margin-bottom:6px">
+      {{ top_cb_name }}
+    </div>
+    <div style="display:inline-block;background:#ECFDF3;color:#027A48;font-size:11px;
+                font-weight:900;padding:5px 12px;border-radius:999px;margin-bottom:22px">
+      STAR — profitable & scalable
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div style="text-align:center;padding:14px 8px;background:#EEF4FF;border-radius:14px">
+        <div style="font-size:10px;font-weight:900;color:var(--axa-blue);
+                    letter-spacing:.08em;margin-bottom:6px">SCORE</div>
+        <div style="font-size:26px;font-weight:900;color:var(--axa-blue)">{{ top_cb_score }}</div>
+      </div>
+      <div style="text-align:center;padding:14px 8px;background:#ECFDF3;border-radius:14px">
+        <div style="font-size:10px;font-weight:900;color:#027A48;
+                    letter-spacing:.08em;margin-bottom:6px">LOSS RATIO</div>
+        <div style="font-size:26px;font-weight:900;color:#027A48">{{ top_cb_lr }}</div>
+      </div>
+      <div style="text-align:center;padding:14px 8px;background:#F7F9FC;border-radius:14px">
+        <div style="font-size:10px;font-weight:900;color:var(--muted);
+                    letter-spacing:.08em;margin-bottom:6px">UW MARGIN</div>
+        <div style="font-size:26px;font-weight:900;color:var(--navy)">{{ top_cb_margin }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top COB x Channel -->
+  <div style="background:white;border:1px solid var(--line);border-radius:20px;
+              padding:28px 32px;box-shadow:0 4px 20px rgba(255,23,33,.08);
+              border-left:6px solid var(--axa-red)">
+    <div style="font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+                color:var(--axa-red);margin-bottom:14px">Best COB × Channel</div>
+    <div style="font-size:32px;font-weight:900;color:var(--navy);letter-spacing:-.03em;margin-bottom:6px">
+      {{ top_cc_name }}
+    </div>
+    <div style="display:inline-block;background:#ECFDF3;color:#027A48;font-size:11px;
+                font-weight:900;padding:5px 12px;border-radius:999px;margin-bottom:22px">
+      STAR — profitable & scalable
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div style="text-align:center;padding:14px 8px;background:#FFF0F0;border-radius:14px">
+        <div style="font-size:10px;font-weight:900;color:var(--axa-red);
+                    letter-spacing:.08em;margin-bottom:6px">SCORE</div>
+        <div style="font-size:26px;font-weight:900;color:var(--axa-red)">{{ top_cc_score }}</div>
+      </div>
+      <div style="text-align:center;padding:14px 8px;background:#ECFDF3;border-radius:14px">
+        <div style="font-size:10px;font-weight:900;color:#027A48;
+                    letter-spacing:.08em;margin-bottom:6px">LOSS RATIO</div>
+        <div style="font-size:26px;font-weight:900;color:#027A48">{{ top_cc_lr }}</div>
+      </div>
+      <div style="text-align:center;padding:14px 8px;background:#F7F9FC;border-radius:14px">
+        <div style="font-size:10px;font-weight:900;color:var(--muted);
+                    letter-spacing:.08em;margin-bottom:6px">UW MARGIN</div>
+        <div style="font-size:26px;font-weight:900;color:var(--navy)">{{ top_cc_margin }}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     LEGEND — 1 baris, tipis
+════════════════════════════════════════════════════════════ -->
+<div style="display:flex;align-items:center;gap:24px;margin-top:14px;
+            background:white;border:1px solid var(--line);border-radius:12px;
+            padding:10px 20px;font-size:12px;font-weight:700;color:var(--muted)">
+  <span>Panduan warna chart ranking:</span>
+  <span style="display:flex;align-items:center;gap:6px;color:var(--navy)">
+    <span style="width:12px;height:12px;background:#00008F;border-radius:3px;display:inline-block"></span>Score ≥ 80
+  </span>
+  <span style="display:flex;align-items:center;gap:6px;color:var(--navy)">
+    <span style="width:12px;height:12px;background:#2563EB;border-radius:3px;display:inline-block"></span>Score 65–79
+  </span>
+  <span style="display:flex;align-items:center;gap:6px;color:var(--navy)">
+    <span style="width:12px;height:12px;background:#93C5FD;border-radius:3px;display:inline-block"></span>Score &lt;65
+  </span>
+  <span style="display:flex;align-items:center;gap:6px;color:#B42318">
+    <span style="width:12px;height:12px;background:#FDA29B;border-radius:3px;display:inline-block"></span>Volume Trap — margin negatif, jangan diprioritaskan
+  </span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     2 CHARTS RANKING — side by side
+════════════════════════════════════════════════════════════ -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px">
+
+  <div style="background:white;border:1px solid var(--line);
+              border-radius:20px;padding:24px 28px;box-shadow:0 4px 20px rgba(0,0,0,.05)">
+    <div style="font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+                color:var(--axa-blue);margin-bottom:6px">Branch Analysis</div>
+    <h2 style="margin:0 0 4px;font-size:17px;font-weight:900;color:var(--navy)">
+      COB × Branch — Priority Ranking
+    </h2>
+    <p style="margin:0 0 16px;color:var(--muted);font-size:12px">
+      Top 12 kombinasi · merah muda = Volume Trap
+    </p>
+    <div id="cobBranchChart"></div>
+  </div>
+
+  <div style="background:white;border:1px solid var(--line);
+              border-radius:20px;padding:24px 28px;box-shadow:0 4px 20px rgba(0,0,0,.05)">
+    <div style="font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+                color:var(--axa-red);margin-bottom:6px">Channel Analysis</div>
+    <h2 style="margin:0 0 4px;font-size:17px;font-weight:900;color:var(--navy)">
+      COB × Channel — Priority Ranking
+    </h2>
+    <p style="margin:0 0 16px;color:var(--muted);font-size:12px">
+      Top 12 kombinasi · merah muda = Volume Trap
+    </p>
+    <div id="cobChannelChart"></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     3 KEY INSIGHTS — pengganti channel mix, langsung actionable
+════════════════════════════════════════════════════════════ -->
+<<!-- ══════════════════════════════════════════════════════════
+     KEY INSIGHTS
+════════════════════════════════════════════════════════════ -->
+<div style="margin-top:24px">
+  <div style="font-size:11px;font-weight:900;letter-spacing:.14em;
+              text-transform:uppercase;color:var(--muted);margin-bottom:14px">
+    Key Insights dari Opportunity Map
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+    <!-- Insight 1 -->
+    <div style="background:white;border:1px solid var(--line);
+                border-radius:20px;padding:28px 26px;
+                box-shadow:0 2px 12px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:900;letter-spacing:.12em;
+                  text-transform:uppercase;color:var(--axa-blue);margin-bottom:14px">
+        Branch Insight
+      </div>
+      <div style="font-size:17px;font-weight:900;color:var(--navy);
+                  line-height:1.4;margin-bottom:14px">
+        COB 7 di Branch J jauh lebih sehat dari portofolio COB 7 secara keseluruhan
+      </div>
+      <div style="width:40px;height:3px;background:var(--axa-blue);
+                  border-radius:999px;margin-bottom:16px"></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8">
+        Di level portofolio, COB 7 adalah Volume Trap dengan LR 96%.
+        Tapi khusus di Branch J, LR turun drastis ke
+        <span style="font-weight:900;color:var(--navy)">43.7%</span>
+        dengan margin
+        <span style="font-weight:900;color:var(--navy)">37.2%</span>.
+        Ada underwriting practice di Branch J yang bisa direplikasi ke branch lain.
+      </div>
+    </div>
+
+    <!-- Insight 2 -->
+    <div style="background:white;border:1px solid var(--line);
+                border-radius:20px;padding:28px 26px;
+                box-shadow:0 2px 12px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:900;letter-spacing:.12em;
+                  text-transform:uppercase;color:var(--axa-red);margin-bottom:14px">
+        Peringatan
+      </div>
+      <div style="font-size:17px;font-weight:900;color:var(--navy);
+                  line-height:1.4;margin-bottom:14px">
+        Score tertinggi di chart bukan berarti kombinasi terbaik
+      </div>
+      <div style="width:40px;height:3px;background:var(--axa-red);
+                  border-radius:999px;margin-bottom:16px"></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8">
+        COB 6 × Branch K (Score 88.7) dan COB 6 × Channel B (Score 91.9)
+        muncul di posisi teratas — tapi keduanya Volume Trap dengan
+        <span style="font-weight:900;color:#B42318">margin negatif</span>.
+        Score tinggi karena GWP besar, bukan karena profitabilitas.
+      </div>
+    </div>
+
+    <!-- Insight 3 -->
+    <div style="background:white;border:1px solid var(--line);
+                border-radius:20px;padding:28px 26px;
+                box-shadow:0 2px 12px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:900;letter-spacing:.12em;
+                  text-transform:uppercase;color:#027A48;margin-bottom:14px">
+        Rekomendasi Ekspansi
+      </div>
+      <div style="font-size:17px;font-weight:900;color:var(--navy);
+                  line-height:1.4;margin-bottom:14px">
+        Dua kombinasi paling siap untuk dijadikan pilot ekspansi
+      </div>
+      <div style="width:40px;height:3px;background:#027A48;
+                  border-radius:999px;margin-bottom:16px"></div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:#F0FDF4;border-radius:12px;padding:14px 16px">
+          <div style="font-size:12px;font-weight:900;color:#027A48;margin-bottom:4px">
+            COB 9 × Channel D
+          </div>
+          <div style="font-size:12px;color:var(--muted)">
+            Score 90.9 &nbsp;·&nbsp; LR 4.2% &nbsp;·&nbsp; Margin 82.4%
+          </div>
+        </div>
+        <div style="background:#F0FDF4;border-radius:12px;padding:14px 16px">
+          <div style="font-size:12px;font-weight:900;color:#027A48;margin-bottom:4px">
+            COB 7 × Branch J
+          </div>
+          <div style="font-size:12px;color:var(--muted)">
+            Score 72.5 &nbsp;·&nbsp; LR 43.7% &nbsp;·&nbsp; Margin 37.2%
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6">
+          Monitor LR dan margin per kuartal. Scale-up hanya jika stabil minimal 2 kuartal.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}
+
 {% block scripts %}
-<script>const config={responsive:true,displayModeBar:false};const cb={{ cob_branch_chart|safe if cob_branch_chart else 'null' }};const cc={{ cob_channel_chart|safe if cob_channel_chart else 'null' }};const mix={{ mix_chart|safe if mix_chart else 'null' }};if(cb) Plotly.newPlot('cobBranchChart',cb.data,cb.layout,config);if(cc) Plotly.newPlot('cobChannelChart',cc.data,cc.layout,config);if(mix) Plotly.newPlot('mixChart',mix.data,mix.layout,config);</script>
+<script>
+const config = { 
+    responsive: true, 
+    displayModeBar: false,
+    staticPlot: false,
+    scrollZoom: false
+};
+const cb  = {{ cob_branch_chart  | safe if cob_branch_chart  else 'null' }};
+const cc  = {{ cob_channel_chart | safe if cob_channel_chart else 'null' }};
+if (cb) Plotly.newPlot('cobBranchChart', cb.data, cb.layout, config);
+if (cc) Plotly.newPlot('cobChannelChart', cc.data, cc.layout, config);
+</script>
 {% endblock %}

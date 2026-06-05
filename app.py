@@ -260,21 +260,75 @@ def chart_mix(df, category_col, title):
 def chart_top_combinations(df, key_col, title, metric="COMPOSITE_SCORE"):
     if df.empty or key_col not in df.columns:
         return None
+
     d = df.copy()
-    d["COMBINATION"] = d["COB"].astype(str) + " · " + d[key_col].astype(str)
+    d["COMBINATION"] = d["COB"].astype(str) + " × " + d[key_col].astype(str)
+    d["IS_TRAP"] = d["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP|REVIEW", case=False)
     d = d.sort_values(metric, ascending=True).tail(12)
-    label = "Priority score" if metric == "COMPOSITE_SCORE" else "GWP (IDR Billion)"
-    values = d[metric] if metric == "COMPOSITE_SCORE" else d[metric] / 1e9
+
+    bar_colors, font_colors = [], []
+    for _, row in d.iterrows():
+        if row["IS_TRAP"]:
+            bar_colors.append("#FECACA")
+            font_colors.append("#DC2626")
+        elif row[metric] >= 80:
+            bar_colors.append("#00008F")
+            font_colors.append("#FFFFFF")
+        elif row[metric] >= 65:
+            bar_colors.append("#3B82F6")
+            font_colors.append("#FFFFFF")
+        else:
+            bar_colors.append("#BFDBFE")
+            font_colors.append("#1E40AF")
+
+    text_labels = [
+        f"{'⚠ ' if row['IS_TRAP'] else ''}{row[metric]:.1f}"
+        for _, row in d.iterrows()
+    ]
+
     fig = go.Figure(go.Bar(
-        x=values,
+        x=d[metric],
         y=d["COMBINATION"],
         orientation="h",
-        marker_color=AXA_BLUE,
-        text=[f"{v:.1f}" for v in values],
-        textposition="outside"
+        marker_color=bar_colors,
+        marker_line_width=0,
+        text=text_labels,
+        textposition="inside",
+        insidetextanchor="end",
+        textfont=dict(
+            size=12,
+            family="Inter, Arial, sans-serif",
+            color=font_colors
+        ),
+        hovertemplate="<b>%{y}</b><br>Score: %{x:.1f}<extra></extra>",
+        width=0.55,
     ))
-    fig.update_layout(title=title, xaxis_title=label, yaxis_title="Combination")
-    return plot_to_json(fig, 520)
+
+    fig.update_layout(
+        title=None,
+        xaxis=dict(
+            range=[0, d[metric].max() * 1.08],
+            showgrid=False,
+            zeroline=False,
+            showticklabels=False,
+            title=None,
+            fixedrange=True,
+        ),
+        yaxis=dict(
+            tickfont=dict(size=12, family="Inter, Arial, sans-serif", color="#374151"),
+            title=None,
+            fixedrange=True,
+            automargin=True,
+        ),
+        margin=dict(l=8, r=8, t=4, b=4),
+        height=420,
+        bargap=0.45,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        hoverlabel=dict(bgcolor="white", font_size=12),
+    )
+
+    return json.dumps(fig, cls=PlotlyJSONEncoder)
 
 
 def chart_branch_margin(df):
@@ -507,21 +561,113 @@ def branch_channel():
     })
     return render_template("branch_channel.html", **ctx)
 
+def chart_recommendation_box(df):
+
+    if df.empty:
+        return None
+
+    top = (
+        df.sort_values("COMPOSITE_SCORE", ascending=False)
+        .head(3)
+    )
+
+    labels = []
+    texts = []
+
+    for i, (_, row) in enumerate(top.iterrows(), start=1):
+
+        labels.append(f"Priority {i}")
+
+        texts.append(
+            f"{row['COB']}<br>"
+            f"{row['BRANCH_']}<br>"
+            f"Score {row['COMPOSITE_SCORE']:.1f}"
+        )
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=[1,1,1],
+            y=labels,
+            orientation="h",
+            text=texts,
+            textposition="inside"
+        )
+    )
+
+    fig.update_layout(
+        title="Recommended Actions",
+        xaxis=dict(visible=False),
+        yaxis_title="",
+        showlegend=False,
+        height=450
+    )
+
+    return plot_to_json(fig, 450)
 
 @app.route("/cross-analysis")
 def cross_analysis():
     ctx = get_common_context("cross-analysis")
     cb = ctx["data"]["cob_branch"]
     cc = ctx["data"]["cob_channel"]
+
+    # ── Top combinations ──────────────────────────────────────────────
     best_cb = cb.sort_values("COMPOSITE_SCORE", ascending=False).iloc[0] if not cb.empty else None
     best_cc = cc.sort_values("COMPOSITE_SCORE", ascending=False).iloc[0] if not cc.empty else None
+    # Filter top STAR/NICHE only untuk highlight card
+    star_cb = cb[~cb["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP", case=False)]
+    star_cc = cc[~cc["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP", case=False)]
+    best_cb_star = star_cb.sort_values("COMPOSITE_SCORE", ascending=False).iloc[0] if not star_cb.empty else best_cb
+    best_cc_star = star_cc.sort_values("COMPOSITE_SCORE", ascending=False).iloc[0] if not star_cc.empty else best_cc
+
+    # ── Stacked bar: how each COB is distributed by channel ──────────
+    mix_chart = chart_mix(cc, "CHANNEL_", "How each COB is distributed by channel")
+
+    # ── Key numbers for interpretation ───────────────────────────────
+    top_cb_name  = f"{best_cb_star['COB']} · {best_cb_star['BRANCH_']}"
+    top_cb_score = f"{best_cb_star['COMPOSITE_SCORE']:.1f}"
+    top_cb_lr    = pct(best_cb_star['LOSS_RATIO_PCT'])
+    top_cb_margin= pct(best_cb_star['UNDERWRITING_MARGIN_PCT'])
+
+    top_cc_name  = f"{best_cc_star['COB']} · {best_cc_star['CHANNEL_']}"
+    top_cc_score = f"{best_cc_star['COMPOSITE_SCORE']:.1f}"
+    top_cc_lr    = pct(best_cc_star['LOSS_RATIO_PCT'])
+    top_cc_margin= pct(best_cc_star['UNDERWRITING_MARGIN_PCT'])     if best_cc is not None else "-"
+
     ctx.update({
         "page_title": "Opportunity Map",
-        "page_subtitle": "Bukan hanya segmen mana yang bagus, tapi kombinasi segmen-cabang/channel mana yang paling layak diprioritaskan.",
-        "cob_branch_chart": chart_top_combinations(cb, "BRANCH_", "Top COB x Branch opportunities"),
-        "cob_channel_chart": chart_top_combinations(cc, "CHANNEL_", "Top COB x Channel opportunities"),
-        "mix_chart": chart_mix(cc, "CHANNEL_", "How each COB is distributed by channel"),
-        "cross_interpretation": interpretation("Kombinasi paling menarik", f"Kombinasi terbaik dari sisi branch adalah {best_cb['COB']} · {best_cb['BRANCH_']}, sedangkan dari sisi channel adalah {best_cc['COB']} · {best_cc['CHANNEL_']}." if best_cb is not None and best_cc is not None else "Data kombinasi belum tersedia.", "Gunakan kombinasi ini sebagai shortlist area ekspansi, bukan langsung sebagai keputusan final."),
+        "page_subtitle": "Bukan hanya segmen mana yang bagus, tapi kombinasi segmen–cabang/channel mana yang paling layak diprioritaskan.",
+
+        "cob_branch_chart":  chart_top_combinations(cb, "BRANCH_",  "Top COB × Branch opportunities"),
+        "cob_channel_chart": chart_top_combinations(cc, "CHANNEL_", "Top COB × Channel opportunities"),
+        "mix_chart":         mix_chart,
+
+        # data mentah untuk highlight card di template
+        "top_cb_name":   top_cb_name,
+        "top_cb_score":  top_cb_score,
+        "top_cb_lr":     top_cb_lr,
+        "top_cb_margin": top_cb_margin,
+
+        "top_cc_name":   top_cc_name,
+        "top_cc_score":  top_cc_score,
+        "top_cc_lr":     top_cc_lr,
+        "top_cc_margin": top_cc_margin,
+        "top_cb_gwp": idr_billion(best_cb_star['GWP']),
+        "top_cb_policies": number(best_cb_star['POLICY_COUNT']),
+        "top_cc_gwp": idr_billion(best_cc_star['GWP']),
+        "top_cc_policies": number(best_cc_star['POLICY_COUNT']),
+        "n_star_cb": int((~cb["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP", case=False)).sum()),
+        "n_trap_cb": int(cb["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP", case=False).sum()),
+        "n_star_cc": int((~cc["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP", case=False)).sum()),
+        "n_trap_cc": int(cc["SEGMENT_LABEL"].astype(str).str.contains("VOLUME|TRAP", case=False).sum()),
+
+        "cross_interpretation": interpretation(
+            "Kombinasi paling menarik",
+            f"Kombinasi terbaik dari sisi branch adalah <strong>{top_cb_name}</strong>, "
+            f"sedangkan dari sisi channel adalah <strong>{top_cc_name}</strong>.",
+            "Gunakan kombinasi ini sebagai shortlist area ekspansi, bukan langsung sebagai keputusan final."
+        ),
     })
     return render_template("cross_analysis.html", **ctx)
 
@@ -540,29 +686,64 @@ def strategy():
 
 def build_strategy_cards(df):
     rows = []
-    for _, row in df.sort_values("COMPOSITE_SCORE", ascending=False).iterrows():
+
+    ranked_df = (
+        df.sort_values("COMPOSITE_SCORE", ascending=False)
+        .reset_index(drop=True)
+    )
+
+    for rank, (_, row) in enumerate(ranked_df.iterrows(), start=1):
+
         label = clean_label(row.get("SEGMENT_LABEL", "REVIEW")).upper()
+
         if "STAR" in label:
             strategy = "Scale & Protect"
-            priority = "HIGH"
-            business_read = "Segmen ini sudah sehat dan layak menjadi engine pertumbuhan."
-            action = "Perbesar volume secara selektif, pertahankan pricing discipline, dan monitor klaim agar margin tetap kuat."
+            priority = "STRATEGIC PRIORITY"
+            business_read = (
+                "Segmen ini menunjukkan kombinasi terbaik antara profitabilitas, "
+                "kualitas risiko, dan kontribusi bisnis."
+            )
+            action = (
+                "Fokuskan ekspansi pada segmen ini, pertahankan pricing discipline, "
+                "dan monitor kualitas klaim agar profit tetap terjaga."
+            )
+
         elif "NICHE" in label:
             strategy = "Selective Growth"
-            priority = "MEDIUM"
-            business_read = "Segmen ini profitable tetapi kontribusi bisnisnya masih terbatas."
-            action = "Cari sub-segmen serupa, tambah distribusi secara bertahap, dan validasi apakah profit tetap stabil saat volume naik."
+            priority = "GROWTH OPPORTUNITY"
+            business_read = (
+                "Segmen ini cukup sehat dan memiliki potensi pertumbuhan, "
+                "meskipun kontribusinya belum dominan."
+            )
+            action = (
+                "Perluas distribusi secara bertahap dan validasi apakah profitabilitas "
+                "tetap stabil saat volume meningkat."
+            )
+
         elif "VOLUME" in label:
             strategy = "Fix Before Scale"
-            priority = "HIGH"
-            business_read = "Volume besar belum tentu sehat; ada indikasi profit bocor."
-            action = "Review pricing, underwriting rule, klaim besar, dan channel asal bisnis sebelum ekspansi."
+            priority = "CRITICAL REVIEW"
+            business_read = (
+                "Volume bisnis besar tetapi efisiensi underwriting belum optimal."
+            )
+            action = (
+                "Review pricing, underwriting rule, serta sumber klaim utama "
+                "sebelum melakukan ekspansi lebih lanjut."
+            )
+
         else:
             strategy = "Portfolio Review"
-            priority = "MEDIUM"
-            business_read = "Segmen ini perlu dilihat lebih detail sebelum menjadi prioritas."
-            action = "Evaluasi risiko, klaim, komisi, dan potensi pertumbuhan. Pertahankan hanya bagian yang masih ekonomis."
+            priority = "MONITOR"
+            business_read = (
+                "Segmen ini memerlukan evaluasi tambahan sebelum menjadi prioritas."
+            )
+            action = (
+                "Lakukan monitoring berkala terhadap profitabilitas, risiko, "
+                "dan potensi pertumbuhan bisnis."
+            )
+
         rows.append({
+            "rank": rank,
             "cob": row["COB"],
             "label": clean_label(row["SEGMENT_LABEL"]),
             "strategy": strategy,
@@ -572,7 +753,13 @@ def build_strategy_cards(df):
             "score": f"{row['COMPOSITE_SCORE']:.1f}",
             "margin": pct(row["UNDERWRITING_MARGIN_PCT"]),
             "loss_ratio": pct(row["LOSS_RATIO_PCT"]),
+            "insight": (
+                f"Composite Score {row['COMPOSITE_SCORE']:.1f} | "
+                f"Margin {pct(row['UNDERWRITING_MARGIN_PCT'])} | "
+                f"Loss Ratio {pct(row['LOSS_RATIO_PCT'])}"
+            )
         })
+
     return rows
 
 
