@@ -2,14 +2,66 @@
 {% block content %}
 <section class="strategy-grid client">
     {% for item in strategy_cards %}
-    <div class="strategy-card">
-        <div class="strategy-top"><div><span>{{ item.cob }}</span><h3>{{ item.strategy }}</h3></div><b class="priority {{ item.priority|lower }}">{{ item.priority }}</b></div>
-        <p class="label-pill inline">{{ item.label }}</p>
-        <h4>Business read</h4>
-        <p>{{ item.business_read }}</p>
-        <h4>Recommended action</h4>
-        <p>{{ item.action }}</p>
-        <div class="strategy-metrics"><span>Score {{ item.score }}</span><span>Margin {{ item.margin }}</span><span>LR {{ item.loss_ratio }}</span></div>
+    <div class="strategy-card-v2">
+
+        <!-- TOP ROW: COB name + HIGH badge -->
+        <div class="sc-top-row">
+            <span class="sc-cob-name">{{ item.cob }}</span>
+            <span class="sc-priority-badge {{ item.priority|lower }}">{{ item.priority }}</span>
+        </div>
+
+        <!-- MIDDLE ROW: icon + strategy name + lingkaran score -->
+        <div class="sc-middle-row">
+            <div class="sc-strategy-left">
+                <div class="sc-arrow-icon">↗</div>
+                <div>
+                    <div class="sc-strategy-name">{{ item.strategy }}</div>
+                    <span class="sc-label-pill">{{ item.label }}</span>
+                </div>
+            </div>
+            <!-- Lingkaran Score -->
+            <div class="sc-score-ring-wrap">
+                <svg class="sc-score-ring" viewBox="0 0 60 60">
+                    <circle cx="30" cy="30" r="24" fill="none" stroke="#E4E7EC" stroke-width="5"/>
+                    <circle cx="30" cy="30" r="24" fill="none"
+                        stroke="{% if item.priority == 'HIGH' %}#00008F{% else %}#F59E0B{% endif %}"
+                        stroke-width="5"
+                        stroke-dasharray="{{ (item.score | float / 100 * 150.8) | round(1) }} 150.8"
+                        stroke-linecap="round"
+                        transform="rotate(-90 30 30)"/>
+                </svg>
+                <span class="sc-score-text">{{ item.score }}</span>
+            </div>
+        </div>
+
+        <hr class="sc-divider">
+
+        <!-- BUSINESS READ -->
+        <div class="sc-section-label">BUSINESS READ</div>
+        <p class="sc-body-text">{{ item.business_read }}</p>
+
+        <!-- RECOMMENDED ACTION BOX -->
+        <div class="sc-action-box">
+            <div class="sc-section-label">RECOMMENDED ACTION</div>
+            <p class="sc-body-text">{{ item.action }}</p>
+        </div>
+
+        <!-- BOTTOM METRICS -->
+        <div class="sc-metrics-row">
+            <div class="sc-metric">
+                <span class="sc-metric-value {% if item.priority == 'HIGH' %}color-blue{% endif %}">{{ item.score }}</span>
+                <span class="sc-metric-label">Score</span>
+            </div>
+            <div class="sc-metric">
+                <span class="sc-metric-value color-green">+{{ item.margin }}</span>
+                <span class="sc-metric-label">Margin</span>
+            </div>
+            <div class="sc-metric">
+                <span class="sc-metric-value color-teal">{{ item.loss_ratio }}</span>
+                <span class="sc-metric-label">Loss Ratio</span>
+            </div>
+        </div>
+
     </div>
     {% endfor %}
 </section>

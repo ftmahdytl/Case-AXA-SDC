@@ -539,41 +539,89 @@ def strategy():
 
 
 def build_strategy_cards(df):
-    rows = []
+    cards = []
     for _, row in df.sort_values("COMPOSITE_SCORE", ascending=False).iterrows():
+        cob = row["COB"]
         label = clean_label(row.get("SEGMENT_LABEL", "REVIEW")).upper()
+        score = f"{row['COMPOSITE_SCORE']:.1f}"
+        margin = pct(row["UNDERWRITING_MARGIN_PCT"])
+        loss_ratio = pct(row["LOSS_RATIO_PCT"])
+
         if "STAR" in label:
             strategy = "Scale & Protect"
             priority = "HIGH"
-            business_read = "Segmen ini sudah sehat dan layak menjadi engine pertumbuhan."
-            action = "Perbesar volume secara selektif, pertahankan pricing discipline, dan monitor klaim agar margin tetap kuat."
+            if cob == "COB 9":
+                business_read = (
+                    "COB 9 adalah STAR segment dengan GWP terbesar (24.8% portofolio). "
+                    "Loss Ratio 19.5% dan UW Margin 64.9% membuktikan segmen ini sehat secara fundamental."
+                )
+                action = (
+                    "Pertahankan pricing discipline yang sudah terbukti. "
+                    "Perbesar volume secara selektif dengan fokus pada Branch A dan Channel D. "
+                    "Monitor Net Loss Ratio karena cession rate tinggi (61%) membuat ketergantungan reasuransi perlu dievaluasi."
+                )
+            elif cob == "COB 8":
+                business_read = (
+                    "COB 8 memiliki retention rate 99.98% — AXA menanggung hampir seluruh risiko sendiri. "
+                    "Dengan Loss Ratio 14.6% dan UW Margin 48.6%, ini adalah bukti kepercayaan diri underwriting."
+                )
+                action = (
+                    "Optimasi distribusi dan pertahankan seleksi risiko yang ketat untuk menjaga rasio klaim rendah. "
+                    "Eksplorasi peningkatan volume karena margin sangat kuat menopang pertumbuhan."
+                )
+            else:
+                business_read = "Segmen ini sudah sehat dan layak menjadi engine pertumbuhan."
+                action = "Perbesar volume secara selektif, pertahankan pricing discipline, dan monitor klaim agar margin tetap kuat."
+
         elif "NICHE" in label:
             strategy = "Selective Growth"
             priority = "MEDIUM"
-            business_read = "Segmen ini profitable tetapi kontribusi bisnisnya masih terbatas."
-            action = "Cari sub-segmen serupa, tambah distribusi secara bertahap, dan validasi apakah profit tetap stabil saat volume naik."
+            business_read = (
+                "Segmen ini profitable tetapi kontribusi bisnisnya masih terbatas. "
+                "Potensi tersembunyi ada jika distribusi diperluas dengan hati-hati."
+            )
+            action = (
+                "Cari sub-segmen serupa, tambah distribusi secara bertahap, "
+                "dan validasi apakah profit tetap stabil saat volume naik."
+            )
+
         elif "VOLUME" in label:
             strategy = "Fix Before Scale"
             priority = "HIGH"
-            business_read = "Volume besar belum tentu sehat; ada indikasi profit bocor."
-            action = "Review pricing, underwriting rule, klaim besar, dan channel asal bisnis sebelum ekspansi."
+            business_read = (
+                "Volume besar tapi profit bocor — ini 'volume trap' yang paling berbahaya. "
+                "Setiap IDR 100 premi, hampir seluruhnya habis untuk klaim dan komisi."
+            )
+            action = (
+                "Lakukan surgical intervention: review pricing per sub-segmen, "
+                "perketat underwriting rule, investigasi klaim besar, "
+                "dan evaluasi channel asal bisnis sebelum ekspansi."
+            )
+
         else:
             strategy = "Portfolio Review"
             priority = "MEDIUM"
-            business_read = "Segmen ini perlu dilihat lebih detail sebelum menjadi prioritas."
-            action = "Evaluasi risiko, klaim, komisi, dan potensi pertumbuhan. Pertahankan hanya bagian yang masih ekonomis."
-        rows.append({
-            "cob": row["COB"],
+            business_read = (
+                "Segmen ini perlu dilihat lebih detail sebelum menjadi prioritas. "
+                "Indikator risiko dan profitabilitas belum cukup kuat untuk rekomendasi strategis."
+            )
+            action = (
+                "Evaluasi risiko, klaim, komisi, dan potensi pertumbuhan. "
+                "Pertahankan hanya bagian yang masih ekonomis, pertimbangkan exit jika tidak membaik."
+            )
+
+        cards.append({
+            "cob": cob,
             "label": clean_label(row["SEGMENT_LABEL"]),
             "strategy": strategy,
             "priority": priority,
             "business_read": business_read,
             "action": action,
-            "score": f"{row['COMPOSITE_SCORE']:.1f}",
-            "margin": pct(row["UNDERWRITING_MARGIN_PCT"]),
-            "loss_ratio": pct(row["LOSS_RATIO_PCT"]),
+            "score": score,
+            "margin": margin,
+            "loss_ratio": loss_ratio,
         })
-    return rows
+    return cards
 
 
 if __name__ == "__main__":
