@@ -150,7 +150,7 @@ def load_data():
         "channel": seg_channel,
         "cob_branch": seg_cob_branch,
         "cob_channel": seg_cob_channel,
-        "status": f"Menggunakan data asli dari {os.path.basename(DATA_PATH)}."
+        "status": f""
     }
 
 
