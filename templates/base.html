@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }} · AXA Portfolio Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand-panel">
+            <img src="{{ url_for('static', filename='img/axa-logo.png') }}" alt="AXA logo">
+            <div class="brand-copy">
+                <span>Portfolio Intelligence</span>
+                <strong>Segment Decision Dashboard</strong>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a class="{{ 'active' if active == 'overview' else '' }}" href="{{ url_for('overview') }}">Executive Overview</a>
+            <a class="{{ 'active' if active == 'segments' else '' }}" href="{{ url_for('segments') }}">Segment Portfolio</a>
+            <a class="{{ 'active' if active == 'performance' else '' }}" href="{{ url_for('performance') }}">Profitability & Risk</a>
+            <a class="{{ 'active' if active == 'claims' else '' }}" href="{{ url_for('claims') }}">Claim Experience</a>
+            <a class="{{ 'active' if active == 'branch-channel' else '' }}" href="{{ url_for('branch_channel') }}">Branch & Channel</a>
+            <a class="{{ 'active' if active == 'cross-analysis' else '' }}" href="{{ url_for('cross_analysis') }}">Opportunity Map</a>
+            <a class="{{ 'active' if active == 'strategy' else '' }}" href="{{ url_for('strategy') }}">Recommendation</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span>Case 1</span>
+            <strong>Top Performing Segment Analysis</strong>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">AXA Insurance · Client Presentation</p>
+                <h1>{{ page_title }}</h1>
+                <p>{{ page_subtitle }}</p>
+            </div>
+            <div class="data-pill">{{ data_status }}</div>
+        </header>
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

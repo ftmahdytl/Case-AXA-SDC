@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "_components.html" import interpretation_box, chart_card %}
+{% block content %}
+<section class="chart-grid two">
+    <div>
+        {{ chart_card('profitChart') }}
+        {{ interpretation_box(profit_interpretation) }}
+    </div>
+    <div>
+        {{ chart_card('riskChart') }}
+        {{ interpretation_box(risk_interpretation) }}
+    </div>
+</section>
+<section class="section business-note">
+    <h2>How to present this page</h2>
+    <p>Gunakan halaman ini untuk menjelaskan bahwa portfolio yang baik bukan hanya yang premi masuknya besar. Segmen yang sehat adalah segmen yang masih menyisakan margin setelah klaim dan biaya utama diperhitungkan.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>const config={responsive:true,displayModeBar:false};const profit={{ profit_chart|safe }};const risk={{ risk_chart|safe }};Plotly.newPlot('profitChart',profit.data,profit.layout,config);Plotly.newPlot('riskChart',risk.data,risk.layout,config);</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% macro kpi_grid(kpis) %}
+<section class="kpi-grid">
+    <div class="kpi-card accent-blue"><span>Total GWP</span><strong>{{ kpis.total_gwp }}</strong><p>Ukuran volume bisnis.</p></div>
+    <div class="kpi-card"><span>Total Claims</span><strong>{{ kpis.total_claims }}</strong><p>Beban klaim portfolio.</p></div>
+    <div class="kpi-card accent-red"><span>Underwriting Margin</span><strong>{{ kpis.total_margin }}</strong><p>Profit underwriting sebelum investasi.</p></div>
+    <div class="kpi-card"><span>Portfolio Loss Ratio</span><strong>{{ kpis.portfolio_lr }}</strong><p>Premi yang terserap klaim.</p></div>
+    <div class="kpi-card"><span>Profitable Segments</span><strong>{{ kpis.profitable_count }}</strong><p>Segmen dengan margin positif.</p></div>
+    <div class="kpi-card"><span>Needs Attention</span><strong>{{ kpis.attention_count }}</strong><p>Segmen dengan LR ≥ 80%.</p></div>
+</section>
+{% endmacro %}
+
+{% macro insight_card(item) %}
+<div class="insight-card">
+    <div class="insight-icon">✓</div>
+    <div>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.body }}</p>
+        {% if item.action %}<div class="action-line">Recommended action: {{ item.action }}</div>{% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro interpretation_box(item) %}
+<div class="interpretation-box">
+    <p class="eyebrow">Business interpretation</p>
+    <h3>{{ item.title }}</h3>
+    <p>{{ item.body }}</p>
+    {% if item.action %}<div class="action-line">{{ item.action }}</div>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro chart_card(chart_id, title=None) %}
+<div class="chart-card">
+    {% if title %}<h3 class="chart-title">{{ title }}</h3>{% endif %}
+    <div id="{{ chart_id }}"></div>
+</div>
+{% endmacro %}

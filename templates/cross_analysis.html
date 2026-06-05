@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_components.html" import interpretation_box, chart_card %}
+{% block content %}
+<section class="section chart-with-note">
+    {{ chart_card('cobBranchChart') }}
+    {{ interpretation_box(cross_interpretation) }}
+</section>
+<section class="chart-grid two">
+    {{ chart_card('cobChannelChart') }}
+    {{ chart_card('mixChart') }}
+</section>
+<section class="section business-note">
+    <h2>How to use this opportunity map</h2>
+    <p>Halaman ini membantu client memilih area implementasi: segmen mana, lewat branch mana, dan channel mana. Untuk presentasi, gunakan ini sebagai shortlist untuk ekspansi atau pilot action.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>const config={responsive:true,displayModeBar:false};const cb={{ cob_branch_chart|safe if cob_branch_chart else 'null' }};const cc={{ cob_channel_chart|safe if cob_channel_chart else 'null' }};const mix={{ mix_chart|safe if mix_chart else 'null' }};if(cb) Plotly.newPlot('cobBranchChart',cb.data,cb.layout,config);if(cc) Plotly.newPlot('cobChannelChart',cc.data,cc.layout,config);if(mix) Plotly.newPlot('mixChart',mix.data,mix.layout,config);</script>
+{% endblock %}

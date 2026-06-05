@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% from "_components.html" import interpretation_box, chart_card %}
+{% block content %}
+<section class="top-grid">
+    {% for row in top_segments %}
+    <div class="top-card rank-{{ loop.index }}">
+        <div class="rank-badge">#{{ loop.index }}</div>
+        <h2>{{ row.COB }}</h2>
+        <p class="segment-label">{{ row.SEGMENT_LABEL_CLEAN }}</p>
+        <div class="metric-row"><span>Priority score</span><strong>{{ "%.1f"|format(row.COMPOSITE_SCORE) }}</strong></div>
+        <div class="metric-row"><span>Margin</span><strong>{{ "%.1f"|format(row.UNDERWRITING_MARGIN_PCT) }}%</strong></div>
+        <div class="metric-row"><span>Loss ratio</span><strong>{{ "%.1f"|format(row.LOSS_RATIO_PCT) }}%</strong></div>
+        <div class="metric-row"><span>GWP contribution</span><strong>{{ "%.1f"|format(row.GWP_CONTRIBUTION_PCT) }}%</strong></div>
+    </div>
+    {% endfor %}
+</section>
+
+<section class="section chart-with-note">
+    {{ chart_card('priorityChart') }}
+    {{ interpretation_box(interpretation) }}
+</section>
+
+<section class="section">
+    <div class="section-header"><div><p class="eyebrow">Client table</p><h2>Segment decision table</h2></div><p>Tabel ini dibuat sebagai ringkasan bisnis, bukan sebagai tabel statistik mentah.</p></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>COB</th><th>GWP</th><th>Claims</th><th>Loss Ratio</th><th>Margin</th><th>Margin %</th><th>GWP Share</th><th>Score</th><th>Label</th></tr></thead>
+            <tbody>
+            {% for row in table_rows %}
+                <tr><td><strong>{{ row.COB }}</strong></td><td>{{ row.GWP }}</td><td>{{ row.GROSS_CLAIMS }}</td><td>{{ row.LOSS_RATIO_PCT }}</td><td>{{ row.UNDERWRITING_MARGIN }}</td><td>{{ row.UNDERWRITING_MARGIN_PCT }}</td><td>{{ row.GWP_CONTRIBUTION_PCT }}</td><td><strong>{{ row.COMPOSITE_SCORE }}</strong></td><td><span class="label-pill">{{ row.SEGMENT_LABEL }}</span></td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>const config={responsive:true,displayModeBar:false};const priority={{ priority_chart|safe }};Plotly.newPlot('priorityChart',priority.data,priority.layout,config);</script>
+{% endblock %}
