@@ -157,14 +157,57 @@ def load_data():
 def plot_to_json(fig, height=430):
     fig.update_layout(
         template="plotly_white",
+
         height=height,
+
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter, Arial, sans-serif", color=TEXT_DARK),
-        margin=dict(l=40, r=24, t=56, b=40),
-        hoverlabel=dict(bgcolor="white", font_size=13, font_family="Inter, Arial, sans-serif"),
-        legend=dict(orientation="h", yanchor="bottom", y=-0.22, xanchor="left", x=0),
+
+        title_x=0.5,
+        title_font=dict(
+            size=22,
+            color=AXA_NAVY,
+            family="Inter, Arial, sans-serif"
+        ),
+
+        font=dict(
+            family="Inter, Arial, sans-serif",
+            color=TEXT_DARK,
+            size=13
+        ),
+
+        margin=dict(
+            l=40,
+            r=24,
+            t=80,
+            b=40
+        ),
+
+        hoverlabel=dict(
+            bgcolor="white",
+            font_size=13,
+            font_family="Inter, Arial, sans-serif"
+        ),
+
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=-0.25,
+            xanchor="center",
+            x=0.5
+        )
     )
+
+    fig.update_xaxes(
+        showgrid=True,
+        gridcolor="rgba(148,163,184,0.2)",
+        zeroline=False
+    )
+
+    fig.update_yaxes(
+        showgrid=False
+    )
+
     return json.dumps(fig, cls=PlotlyJSONEncoder)
 
 
@@ -198,7 +241,7 @@ def chart_profit_leak(df):
         hovertemplate="<b>%{y}</b><br>Margin: IDR %{x:.1f}B<extra></extra>"
     ))
     fig.add_vline(x=0, line_dash="dash", line_color="#94A3B8", annotation_text="Break-even")
-    fig.update_layout(title="Where profit is created or leaked", xaxis_title="Underwriting margin (IDR Billion)", yaxis_title="COB")
+    fig.update_layout(title="<b>UNDERWRITING PROFITABILITY BY SEGMENT</b>", xaxis_title="Underwriting margin (IDR Billion)", yaxis_title="COB")
     return plot_to_json(fig, 470)
 
 
@@ -212,10 +255,22 @@ def chart_risk_level(df):
         color="LOSS_RATIO_PCT",
         color_continuous_scale=["#0F766E", "#F59E0B", "#DC2626"],
         text=d["LOSS_RATIO_PCT"].round(1).astype(str) + "%",
-        title="Risk level by segment"
+        title="<b>LOSS RATIO BENCHMARK</b>"
     )
-    fig.add_vline(x=60, line_dash="dash", line_color="#0F766E", annotation_text="Healthy")
-    fig.add_vline(x=80, line_dash="dash", line_color="#DC2626", annotation_text="Needs attention")
+    fig.add_vline(
+        x=60,
+        line_dash="dash",
+        line_width=3,
+        line_color="#0F766E",
+        annotation_text="Healthy Zone"
+    )
+    fig.add_vline(
+        x=80,
+        line_dash="dash",
+        line_width=3,
+        line_color="#DC2626",
+        annotation_text="Attention Zone"
+    )
     fig.update_traces(textposition="outside", marker_line_width=0)
     fig.update_layout(xaxis_title="Claims as % of premium", yaxis_title="COB", coloraxis_showscale=False)
     return plot_to_json(fig, 470)
