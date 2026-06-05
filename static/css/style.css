@@ -28,68 +28,1062 @@ body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135d
 .top-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}.top-card{padding:26px;position:relative;overflow:hidden}.top-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:6px;background:var(--axa-blue)}.top-card.rank-1:before{background:var(--axa-red)}.rank-badge{width:42px;height:42px;display:grid;place-items:center;background:#F2F4F7;border-radius:14px;color:var(--axa-blue);font-weight:900;margin-bottom:18px}.top-card h2{font-size:38px;margin:0;color:var(--navy);letter-spacing:-.06em}.segment-label{margin:6px 0 18px;color:var(--muted);font-weight:800}.metric-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:14px}.metric-row span{color:var(--muted);font-weight:700}.metric-row strong{color:var(--navy)}
 .chart-grid{display:grid;gap:22px;margin-top:24px}.chart-grid.two{grid-template-columns:repeat(2,1fr)}.chart-with-note{display:grid;grid-template-columns:1.4fr .75fr;gap:22px;align-items:start}.chart-card{padding:16px;min-height:470px}.chart-card>div{min-height:430px}.chart-title{margin:0 0 12px;color:var(--navy)}.interpretation-box{padding:24px;position:sticky;top:24px}.business-note{padding:26px;background:linear-gradient(135deg,#FFFFFF,#F8FAFF)}
 .table-wrapper{background:white;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:auto}table{border-collapse:collapse;width:100%;min-width:1080px}thead{background:#07143F;color:white}th,td{padding:15px 16px;text-align:left;font-size:13px;white-space:nowrap}td{border-bottom:1px solid var(--line);color:#344054}tbody tr:hover{background:#F8FAFC}.label-pill{display:inline-flex;background:#EEF4FF;color:var(--axa-blue);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900}.label-pill.inline{margin:0 0 16px}
-.decision-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}.decision-strip>div{padding:24px}.decision-strip strong{display:block;font-size:32px;color:var(--navy);letter-spacing:-.05em;margin:8px 0}.decision-strip p{margin:0;color:var(--muted)}.strategy-card{padding:24px}.strategy-top{display:flex;justify-content:space-between;gap:18px}.strategy-top span{font-size:13px;font-weight:900;color:var(--axa-blue)}.strategy-top h3{font-size:24px;color:var(--navy);margin:4px 0 12px}.priority{height:max-content;border-radius:999px;padding:8px 10px;font-size:11px}.priority.high{background:#FEE4E2;color:#B42318}.priority.medium{background:#FEF0C7;color:#B54708}.priority.low{background:#E0F2FE;color:#026AA2}.strategy-card h4{margin:16px 0 6px;color:var(--navy)}.strategy-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.strategy-metrics span{background:#F2F4F7;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:800;color:#344054}
-.strategy-grid.client{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px;align-items:start}
+.decision-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}.decision-strip>div{padding:24px}.decision-strip strong{display:block;font-size:32px;color:var(--navy);letter-spacing:-.05em;margin:8px 0}.decision-strip p{margin:0;color:var(--muted)}.strategy-grid.client{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px}.strategy-card{padding:24px}.strategy-top{display:flex;justify-content:space-between;gap:18px}.strategy-top span{font-size:13px;font-weight:900;color:var(--axa-blue)}.strategy-top h3{font-size:24px;color:var(--navy);margin:4px 0 12px}.priority{height:max-content;border-radius:999px;padding:8px 10px;font-size:11px}.priority.high{background:#FEE4E2;color:#B42318}.priority.medium{background:#FEF0C7;color:#B54708}.priority.low{background:#E0F2FE;color:#026AA2}.strategy-card h4{margin:16px 0 6px;color:var(--navy)}.strategy-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.strategy-metrics span{background:#F2F4F7;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:800;color:#344054}
 @media(max-width:1300px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.hero-overview,.chart-with-note,.split-section{grid-template-columns:1fr}.chart-grid.two,.strategy-grid.client{grid-template-columns:1fr}.interpretation-box{position:static}.story-grid,.top-grid{grid-template-columns:1fr}}
 @media(max-width:980px){.sidebar{position:static;width:100%;height:auto}.main-content{margin-left:0;padding:18px}.page-header{flex-direction:column}.page-header h1{font-size:36px}.data-pill{white-space:normal}.kpi-grid,.decision-strip{grid-template-columns:1fr}}
+<<<<<<< HEAD
 
-/* ════ SEGMENT PAGE ════ */
-.segment-opening{display:grid;grid-template-columns:1.35fr .75fr;gap:22px;align-items:stretch}
-.opening-card,.opening-note,.client-interpretation-panel,.segment-card-insight,.guide-card,.table-interpretation{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
-.opening-card{padding:30px}.opening-card h2{margin:0 0 12px;font-size:30px;letter-spacing:-.04em;color:var(--navy)}
-.opening-card p,.opening-note p,.client-interpretation-panel p,.guide-card p,.table-interpretation p{color:var(--muted);line-height:1.75;margin:0}
-.opening-note{padding:26px;background:radial-gradient(circle at top right,rgba(6,182,212,.16),transparent 34%),linear-gradient(135deg,#FFFFFF,#F8FAFF)}
-.opening-note h3,.client-interpretation-panel h3,.guide-card h3,.table-interpretation h3{margin:0 0 10px;color:var(--navy)}
-.top-card-head{display:flex;justify-content:space-between;align-items:flex-start}
-.segment-card-insight{margin-top:16px;padding:14px;background:linear-gradient(135deg,#F8FAFF,#EEF4FF);border-left:4px solid var(--axa-blue);color:#344054;font-size:13px;font-weight:700;line-height:1.55;box-shadow:none}
-.client-interpretation-panel{padding:26px;position:sticky;top:24px}
-.talking-point{margin-top:14px;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,rgba(6,182,212,.11),rgba(124,58,237,.10));border-left:4px solid var(--cyan);color:#344054;line-height:1.55;font-size:14px}
-.talking-point.soft{background:linear-gradient(135deg,rgba(255,23,33,.08),rgba(245,158,11,.10));border-left-color:var(--axa-red)}
-.segment-decision-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
-.guide-card{padding:24px;position:relative;overflow:hidden}
-.guide-card::after{content:"";position:absolute;right:-26px;top:-26px;width:90px;height:90px;border-radius:999px;opacity:.16}
-.guide-card.star::after{background:var(--cyan)}.guide-card.niche::after{background:var(--purple)}.guide-card.volume::after{background:var(--axa-red)}
-.guide-card span{display:inline-flex;padding:7px 11px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--axa-blue);background:#EEF4FF;margin-bottom:14px}
-.table-interpretation{margin-top:18px;padding:22px;background:linear-gradient(135deg,#FFFFFF,#F8FAFF);display:none!important}
+.segment-opening {
+    display: grid;
+    grid-template-columns: 1.35fr .75fr;
+    gap: 22px;
+    align-items: stretch;
+}
 
-/* ════ SEGMENT RANKING LAYOUT ════ */
-.segment-ranking-header{margin-bottom:18px}
-.segment-ranking-header h2{font-size:30px;letter-spacing:-.05em;color:#06113E}
-.segment-ranking-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(360px,.85fr);gap:24px;align-items:stretch}
-.segment-chart-area,.segment-ranking-interpretation{height:510px!important;min-height:510px!important}
-.segment-chart-area .chart-card{height:510px!important;min-height:510px!important;margin-top:0!important;padding:28px 30px 18px!important;border-radius:28px!important;background:radial-gradient(circle at top right,rgba(0,0,143,.07),transparent 30%),linear-gradient(135deg,#FFFFFF,#FBFCFF)!important;display:flex!important;align-items:center!important}
-.segment-chart-area .chart-card>div{width:100%!important;height:455px!important;min-height:455px!important}
-.segment-ranking-interpretation{margin-top:0!important;overflow-y:auto!important;padding:28px 26px!important;border-radius:28px!important;background:radial-gradient(circle at top right,rgba(255,23,33,.08),transparent 30%),linear-gradient(135deg,#FFFFFF,#FBFCFF)!important}
-.segment-ranking-interpretation::-webkit-scrollbar{width:6px}.segment-ranking-interpretation::-webkit-scrollbar-track{background:#EEF2F7;border-radius:999px}.segment-ranking-interpretation::-webkit-scrollbar-thumb{background:#B8C0D9;border-radius:999px}.segment-ranking-interpretation::-webkit-scrollbar-thumb:hover{background:#8E99B8}
-.chart-with-note .client-interpretation-panel{margin-top:0!important}
-@media(max-width:1200px){.segment-opening,.segment-decision-guide,.segment-ranking-layout{grid-template-columns:1fr}.client-interpretation-panel{position:static}.segment-chart-area,.segment-ranking-interpretation{height:auto!important;min-height:auto!important}.segment-chart-area .chart-card{min-height:560px!important}.segment-chart-area .chart-card>div{height:520px!important;min-height:520px!important}}
+.opening-card,
+.opening-note,
+.client-interpretation-panel,
+.segment-card-insight,
+.guide-card,
+.table-interpretation {
+    background: rgba(255,255,255,.92);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+}
 
-/* ════════════════════════════════
-   STRATEGY CARD V2
-   ════════════════════════════════ */
-.sc-card{background:#fff;border:1px solid #E4E7EC;border-radius:20px;padding:22px 24px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 24px rgba(16,24,40,.06)}
-.sc-row-top{display:flex;justify-content:space-between;align-items:center}
-.sc-cob{font-size:12px;font-weight:800;color:#667085;text-transform:uppercase;letter-spacing:.07em}
-.sc-badge{border-radius:999px;padding:4px 12px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
-.sc-badge.high{background:#FEE4E2;color:#B42318}
-.sc-badge.medium{background:#FEF0C7;color:#B54708}
-.sc-badge.low{background:#D1FAE5;color:#065F46}
-.sc-row-mid{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.sc-left{display:flex;align-items:center;gap:12px}
-.sc-icon{width:36px;height:36px;border-radius:10px;background:#EEF4FF;color:#00008F;font-size:18px;display:grid;place-items:center;flex-shrink:0}
-.sc-strat-name{font-size:20px;font-weight:900;color:#07143F;margin-bottom:5px;letter-spacing:-.03em}
-.sc-pill{display:inline-block;background:#EEF4FF;color:#00008F;border-radius:999px;padding:4px 12px;font-size:11px;font-weight:900;text-transform:uppercase}
-.sc-ring-wrap{position:relative;width:56px;height:56px;flex-shrink:0}
-.sc-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#07143F}
-.sc-hr{border:none;border-top:1px solid #E4E7EC;margin:0}
-.sc-label-sm{margin:0 0 4px;font-size:10px;font-weight:900;color:#667085;text-transform:uppercase;letter-spacing:.1em}
-.sc-text{margin:0;font-size:13.5px;color:#344054;line-height:1.65}
-.sc-action-box{background:#F7F9FC;border-radius:12px;padding:14px 16px;border:1px solid #E4E7EC;display:flex;flex-direction:column;gap:4px}
-.sc-metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #E4E7EC;padding-top:14px;margin-top:2px}
-.sc-metrics>div:nth-child(2){text-align:center}
-.sc-metrics>div:nth-child(3){text-align:right}
-.sc-m-val{font-size:17px;font-weight:900;letter-spacing:-.02em}
-.sc-m-val.blue{color:#00008F}
-.sc-m-val.green{color:#027A48}
-.sc-m-val.teal{color:#0E7490}
-.sc-m-key{font-size:11px;color:#667085;font-weight:700;margin-top:2px}
+.opening-card {
+    padding: 30px;
+}
+
+.opening-card h2 {
+    margin: 0 0 12px;
+    font-size: 30px;
+    letter-spacing: -.04em;
+    color: var(--navy);
+}
+
+.opening-card p,
+.opening-note p,
+.client-interpretation-panel p,
+.guide-card p,
+.table-interpretation p {
+    color: var(--muted);
+    line-height: 1.75;
+    margin: 0;
+}
+
+.opening-note {
+    padding: 26px;
+    background:
+        radial-gradient(circle at top right, rgba(6,182,212,.16), transparent 34%),
+        linear-gradient(135deg, #FFFFFF, #F8FAFF);
+}
+
+.opening-note h3,
+.client-interpretation-panel h3,
+.guide-card h3,
+.table-interpretation h3 {
+    margin: 0 0 10px;
+    color: var(--navy);
+}
+
+.top-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.segment-card-insight {
+    margin-top: 16px;
+    padding: 14px;
+    background: linear-gradient(135deg, #F8FAFF, #EEF4FF);
+    border-left: 4px solid var(--axa-blue);
+    color: #344054;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.55;
+    box-shadow: none;
+}
+
+.client-interpretation-panel {
+    padding: 26px;
+    position: sticky;
+    top: 24px;
+}
+
+.talking-point {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(6,182,212,.11), rgba(124,58,237,.10));
+    border-left: 4px solid var(--cyan);
+    color: #344054;
+    line-height: 1.55;
+    font-size: 14px;
+}
+
+.talking-point.soft {
+    background: linear-gradient(135deg, rgba(255,23,33,.08), rgba(245,158,11,.10));
+    border-left-color: var(--axa-red);
+}
+
+.segment-decision-guide {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.guide-card {
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.guide-card::after {
+    content: "";
+    position: absolute;
+    right: -26px;
+    top: -26px;
+    width: 90px;
+    height: 90px;
+    border-radius: 999px;
+    opacity: .16;
+}
+
+.guide-card.star::after {
+    background: var(--cyan);
+}
+
+.guide-card.niche::after {
+    background: var(--purple);
+}
+
+.guide-card.volume::after {
+    background: var(--axa-red);
+}
+
+.guide-card span {
+    display: inline-flex;
+    padding: 7px 11px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    color: var(--axa-blue);
+    background: #EEF4FF;
+    margin-bottom: 14px;
+}
+
+.table-interpretation {
+    margin-top: 18px;
+    padding: 22px;
+    background: linear-gradient(135deg, #FFFFFF, #F8FAFF);
+}
+
+@media (max-width: 1200px) {
+    .segment-opening,
+    .segment-decision-guide {
+        grid-template-columns: 1fr;
+    }
+
+    .client-interpretation-panel {
+        position: static;
+    }
+}
+/* Turunin kotak chart Segment Priority Ranking */
+#priorityChart {
+    margin-top: 18px;
+}
+/* Biar kotak chart kiri sejajar dengan kotak interpretasi kanan */
+.chart-with-note {
+    align-items: start;
+}
+
+.chart-with-note > div:first-child {
+    margin-top: 0;
+}
+
+.chart-with-note .chart-card {
+    margin-top: 0;
+}
+
+.client-interpretation-panel {
+    margin-top: 0;
+}
+/* Samakan tinggi Business Interpretation dengan kotak chart */
+.chart-with-note {
+    align-items: stretch;
+}
+
+/* Kotak kanan Business Interpretation dibuat fixed-height dan bisa discroll */
+.chart-with-note .client-interpretation-panel {
+    height: 560px;
+    max-height: 560px;
+    overflow-y: auto;
+    padding-right: 22px;
+}
+
+/* Scrollbar biar tetap clean */
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar {
+    width: 7px;
+}
+
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar-thumb:hover {
+    background: #8E99B8;
+}
+.chart-with-note .client-interpretation-panel {
+    height: 520px;
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 22px;
+}
+/* Rapikan alignment Segment Performance Ranking */
+.chart-with-note {
+    align-items: start !important;
+}
+
+/* Kotak chart kiri */
+.chart-with-note .chart-card {
+    height: 540px !important;
+    min-height: 540px !important;
+}
+
+/* Isi chart kiri */
+.chart-with-note .chart-card > div {
+    height: 500px !important;
+    min-height: 500px !important;
+}
+
+/* Kotak business interpretation kanan: turun + tinggi sama */
+.chart-with-note .client-interpretation-panel {
+    margin-top: 82px !important;
+    height: 540px !important;
+    max-height: 540px !important;
+    overflow-y: auto !important;
+    padding-right: 22px !important;
+}
+
+/* Scrollbar kanan biar clean */
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.chart-with-note .client-interpretation-panel::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+/* ===============================
+   SEGMENT PAGE FINAL FIX
+   =============================== */
+
+/* Header ranking */
+.segment-ranking-header {
+    margin-bottom: 18px;
+}
+
+/* Layout utama chart + interpretation */
+.segment-ranking-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(360px, .85fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* Biar area kiri dan kanan benar-benar sama tinggi */
+.segment-chart-area,
+.segment-ranking-interpretation {
+    height: 560px !important;
+    min-height: 560px !important;
+}
+
+/* Kotak chart kiri */
+.segment-chart-area .chart-card {
+    height: 100% !important;
+    min-height: 100% !important;
+    margin-top: 0 !important;
+}
+
+/* Isi chart */
+.segment-chart-area .chart-card > div {
+    height: 520px !important;
+    min-height: 520px !important;
+}
+
+/* Kotak business interpretation kanan */
+.segment-ranking-interpretation {
+    margin-top: 0 !important;
+    overflow-y: auto !important;
+    padding: 28px 26px !important;
+}
+
+/* Scrollbar kanan */
+.segment-ranking-interpretation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb:hover {
+    background: #8E99B8;
+}
+
+/* Matikan efek lama chart-with-note yang sebelumnya bikin geser */
+.chart-with-note .client-interpretation-panel {
+    margin-top: 0 !important;
+}
+
+/* Biar guide card turun rapi setelah chart */
+.segment-decision-guide {
+    margin-top: 34px;
+}
+
+/* Hilangkan style table interpretation kalau masih kebaca dari CSS lama */
+.table-interpretation {
+    display: none !important;
+}
+
+@media (max-width: 1200px) {
+    .segment-ranking-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .segment-chart-area,
+    .segment-ranking-interpretation {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .segment-chart-area .chart-card {
+        height: auto !important;
+        min-height: 520px !important;
+    }
+
+    .segment-chart-area .chart-card > div {
+        height: 500px !important;
+        min-height: 500px !important;
+    }
+}
+/* Grafik ranking biar lebih clean dan modern */
+.segment-chart-area .chart-card {
+    padding: 22px 24px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(6,182,212,.10), transparent 28%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+
+.segment-chart-area .chart-card > div {
+    border-radius: 22px;
+}
+
+/* Judul section ranking */
+.segment-ranking-header h2 {
+    font-size: 30px;
+    letter-spacing: -0.05em;
+    color: #06113E;
+}
+
+/* Biar Business Interpretation lebih nyambung dengan chart */
+.segment-ranking-interpretation {
+    background:
+        radial-gradient(circle at top right, rgba(236,72,153,.09), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+/* ===============================
+   FIX CHART SEGMENT PRIORITY FINAL
+   =============================== */
+
+.segment-ranking-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(360px, .85fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* Samakan tinggi kotak kiri dan kanan */
+.segment-chart-area,
+.segment-ranking-interpretation {
+    height: 590px !important;
+    min-height: 590px !important;
+}
+
+/* Kotak chart kiri */
+.segment-chart-area .chart-card {
+    height: 100% !important;
+    min-height: 100% !important;
+    margin-top: 0 !important;
+    padding: 26px 28px 20px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(0,0,143,.08), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+
+/* Isi plotly chart */
+.segment-chart-area .chart-card > div {
+    height: 545px !important;
+    min-height: 545px !important;
+}
+
+/* Kotak business interpretation kanan */
+.segment-ranking-interpretation {
+    margin-top: 0 !important;
+    overflow-y: auto !important;
+    padding: 28px 26px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(255,23,33,.08), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+
+/* Scrollbar kanan */
+.segment-ranking-interpretation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb:hover {
+    background: #8E99B8;
+}
+
+/* Judul section luar */
+.segment-ranking-header {
+    margin-bottom: 18px !important;
+}
+
+.segment-ranking-header h2 {
+    font-size: 30px;
+    letter-spacing: -0.05em;
+    color: #06113E;
+}
+
+/* Matikan efek lama yang mungkin masih bentrok */
+.chart-with-note .client-interpretation-panel {
+    margin-top: 0 !important;
+}
+
+/* Jarak bawah setelah ranking section */
+.segment-decision-guide {
+    margin-top: 34px !important;
+}
+
+@media (max-width: 1200px) {
+    .segment-ranking-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .segment-chart-area,
+    .segment-ranking-interpretation {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .segment-chart-area .chart-card {
+        min-height: 560px !important;
+    }
+
+    .segment-chart-area .chart-card > div {
+        height: 520px !important;
+        min-height: 520px !important;
+    }
+}
+/* ===============================
+   FINAL FIX: Segment Priority Chart Symmetry
+   =============================== */
+
+.segment-ranking-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(360px, .85fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* Tinggi kiri dan kanan disamakan, tapi tidak terlalu tinggi */
+.segment-chart-area,
+.segment-ranking-interpretation {
+    height: 510px !important;
+    min-height: 510px !important;
+}
+
+/* Kotak putih chart */
+.segment-chart-area .chart-card {
+    height: 510px !important;
+    min-height: 510px !important;
+    margin-top: 0 !important;
+    padding: 28px 30px 18px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(0,0,143,.07), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Area Plotly di dalam kotak */
+.segment-chart-area .chart-card > div {
+    width: 100% !important;
+    height: 455px !important;
+    min-height: 455px !important;
+}
+
+/* Kotak business interpretation kanan */
+.segment-ranking-interpretation {
+    margin-top: 0 !important;
+    overflow-y: auto !important;
+    padding: 28px 26px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(255,23,33,.08), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+
+/* Scrollbar kanan */
+.segment-ranking-interpretation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+
+/* Header section */
+.segment-ranking-header {
+    margin-bottom: 18px !important;
+}
+
+.segment-ranking-header h2 {
+    font-size: 30px;
+    letter-spacing: -0.05em;
+    color: #06113E;
+}
+
+/* Matikan efek lama */
+.chart-with-note .client-interpretation-panel {
+    margin-top: 0 !important;
+}
+
+/* Biar guide card tidak terlalu nempel */
+.segment-decision-guide {
+    margin-top: 34px !important;
+}
+=======
+/* ── STRATEGY CARD V2 ── */
+.strategy-card-v2 {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sc-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sc-cob-name {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.sc-priority-badge {
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+.sc-priority-badge.high { background: #FEE4E2; color: #B42318; }
+.sc-priority-badge.medium { background: #FEF0C7; color: #B54708; }
+.sc-priority-badge.low { background: #E0F2FE; color: #026AA2; }
+
+.sc-middle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.sc-strategy-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sc-arrow-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #EEF4FF;
+    color: var(--axa-blue);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    font-weight: 900;
+    flex-shrink: 0;
+}
+
+.sc-strategy-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 6px;
+    letter-spacing: -.03em;
+}
+
+.sc-label-pill {
+    display: inline-block;
+    background: #EEF4FF;
+    color: var(--axa-blue);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* ── Lingkaran Score ── */
+.sc-score-ring-wrap {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+.sc-score-ring {
+    width: 60px;
+    height: 60px;
+}
+.sc-score-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--navy);
+}
+
+.sc-divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 0;
+}
+
+.sc-section-label {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 6px;
+}
+
+.sc-body-text {
+    margin: 0;
+    font-size: 14px;
+    color: #344054;
+    line-height: 1.7;
+}
+
+.sc-action-box {
+    background: #F7F9FC;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid var(--line);
+}
+
+.sc-metrics-row {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    margin-top: 4px;
+}
+
+.sc-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sc-metric-value {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -.03em;
+}
+.sc-metric-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.color-blue  { color: var(--axa-blue); }
+.color-green { color: #027A48; }
+.color-teal  { color: #0E7490; }
+>>>>>>> cello
+/* ===============================
+   SEGMENT PAGE CLEAN FINAL
+   =============================== */
+
+.segment-top-grid {
+    margin-top: 32px !important;
+}
+
+/* Header ranking */
+.segment-ranking-header {
+    margin-bottom: 18px !important;
+}
+
+.segment-ranking-header h2 {
+    font-size: 30px;
+    letter-spacing: -0.05em;
+    color: #06113E;
+}
+
+.segment-ranking-header > p {
+    max-width: 560px;
+    color: #667085;
+    line-height: 1.65;
+}
+
+/* Layout chart + interpretation */
+.segment-ranking-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(360px, .85fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* Samakan tinggi kiri dan kanan */
+.segment-chart-area,
+.segment-ranking-interpretation {
+    height: 510px !important;
+    min-height: 510px !important;
+}
+
+/* Kotak chart */
+.segment-chart-area .chart-card {
+    height: 510px !important;
+    min-height: 510px !important;
+    margin-top: 0 !important;
+    padding: 28px 30px 18px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(0,0,143,.07), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Isi chart */
+.segment-chart-area .chart-card > div {
+    width: 100% !important;
+    height: 455px !important;
+    min-height: 455px !important;
+}
+
+/* Kotak interpretation */
+.segment-ranking-interpretation {
+    margin-top: 0 !important;
+    overflow-y: auto !important;
+    padding: 28px 26px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(255,23,33,.08), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+
+/* Scrollbar interpretation */
+.segment-ranking-interpretation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb:hover {
+    background: #8E99B8;
+}
+
+/* Jarak section bawah */
+.segment-decision-guide {
+    margin-top: 34px !important;
+}
+
+/* Matikan layout lama yang bikin geser */
+.chart-with-note .client-interpretation-panel {
+    margin-top: 0 !important;
+}
+
+/* Hilangkan sisa table interpretation kalau masih ada dari versi lama */
+.table-interpretation {
+    display: none !important;
+}
+
+@media (max-width: 1200px) {
+    .segment-ranking-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .segment-chart-area,
+    .segment-ranking-interpretation {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .segment-chart-area .chart-card {
+        min-height: 520px !important;
+    }
+
+    .segment-chart-area .chart-card > div {
+        height: 470px !important;
+        min-height: 470px !important;
+    }
+}
+/* ===============================
+   SEGMENT PAGE FINAL CLEAN VERSION
+   =============================== */
+
+.segment-top-grid {
+    margin-top: 32px !important;
+}
+
+/* Top 3 cards */
+.segment-top-grid .top-card {
+    border-radius: 28px !important;
+}
+
+.segment-top-grid .top-card h2 {
+    font-size: 34px;
+    letter-spacing: -0.05em;
+}
+
+/* Ranking title */
+.ranking-title-card {
+    background:
+        radial-gradient(circle at top right, rgba(6,182,212,.08), transparent 32%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-bottom: 18px;
+}
+
+.ranking-title-card h2 {
+    margin: 0 0 10px;
+    font-size: 30px;
+    letter-spacing: -0.05em;
+    color: #06113E;
+}
+
+.ranking-title-card p {
+    margin: 0;
+    max-width: 820px;
+    color: #667085;
+    line-height: 1.65;
+}
+
+/* Ranking chart + interpretation layout */
+.segment-ranking-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(360px, .85fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.segment-chart-area,
+.segment-ranking-interpretation {
+    height: 510px !important;
+    min-height: 510px !important;
+}
+
+/* Chart card */
+.segment-chart-area .chart-card {
+    height: 510px !important;
+    min-height: 510px !important;
+    margin-top: 0 !important;
+    padding: 28px 30px 18px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(0,0,143,.07), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.segment-chart-area .chart-card > div {
+    width: 100% !important;
+    height: 455px !important;
+    min-height: 455px !important;
+}
+
+/* Interpretation */
+.segment-ranking-interpretation {
+    margin-top: 0 !important;
+    overflow-y: auto !important;
+    padding: 28px 26px !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at top right, rgba(255,23,33,.08), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF) !important;
+}
+
+.segment-ranking-interpretation h3 {
+    margin-top: 0;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-track {
+    background: #EEF2F7;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb {
+    background: #B8C0D9;
+    border-radius: 999px;
+}
+
+.segment-ranking-interpretation::-webkit-scrollbar-thumb:hover {
+    background: #8E99B8;
+}
+
+/* Decision guide */
+.segment-decision-guide {
+    margin-top: 34px !important;
+}
+
+/* Table title card */
+.table-title-card {
+    background:
+        radial-gradient(circle at top right, rgba(6,182,212,.10), transparent 30%),
+        linear-gradient(135deg, #FFFFFF, #FBFCFF);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    display: grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 22px;
+    align-items: center;
+}
+
+.table-title-card h2 {
+    margin: 0 0 10px;
+    font-size: 30px;
+    letter-spacing: -0.05em;
+    color: #06113E;
+}
+
+.table-title-card p {
+    margin: 0;
+    color: #667085;
+    line-height: 1.65;
+}
+
+.table-mini-note {
+    background: linear-gradient(135deg, #EEF4FF, #F8FAFF);
+    border-left: 4px solid #00008F;
+    border-radius: 18px;
+    padding: 16px 18px;
+    color: #344054;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.table-mini-note strong {
+    color: #06113E;
+}
+
+/* Matikan sisa style lama */
+.segment-opening,
+.opening-card,
+.opening-note,
+.table-interpretation {
+    display: none !important;
+}
+
+.chart-with-note .client-interpretation-panel {
+    margin-top: 0 !important;
+}
+
+@media (max-width: 1200px) {
+    .segment-ranking-layout,
+    .table-title-card {
+        grid-template-columns: 1fr;
+    }
+
+    .segment-chart-area,
+    .segment-ranking-interpretation {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .segment-chart-area .chart-card {
+        min-height: 520px !important;
+    }
+
+    .segment-chart-area .chart-card > div {
+        height: 470px !important;
+        min-height: 470px !important;
+    }
+}
