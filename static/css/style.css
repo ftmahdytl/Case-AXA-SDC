@@ -1087,3 +1087,440 @@ body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135d
         min-height: 470px !important;
     }
 }
+/* ===============================
+   AUTO-HIDE SIDEBAR FINAL
+   =============================== */
+
+.sidebar {
+    transition: transform .28s ease, box-shadow .28s ease;
+    z-index: 999;
+}
+
+.main-content {
+    transition: margin-left .28s ease, padding-left .28s ease;
+}
+
+/* Saat sidebar hilang */
+body.sidebar-hidden .sidebar {
+    transform: translateX(calc(-100% + 18px));
+    box-shadow: none;
+}
+
+/* Konten dashboard melebar saat sidebar hilang */
+body.sidebar-hidden .main-content {
+    margin-left: 18px !important;
+}
+
+/* Trigger area tipis di kiri */
+.sidebar-hover-hint {
+    position: fixed;
+    top: 0;
+    right: -24px;
+    width: 28px;
+    height: 100vh;
+    background: transparent;
+    z-index: 1000;
+}
+
+/* Garis indikator kecil di kiri saat sidebar hidden */
+body.sidebar-hidden .sidebar::after {
+    content: "";
+    position: fixed;
+    top: 24px;
+    right: -7px;
+    width: 5px;
+    height: calc(100vh - 48px);
+    border-radius: 999px;
+    background: linear-gradient(180deg, #00008F, #FF1721);
+    opacity: .85;
+}
+
+/* Biar sidebar muncul di atas konten */
+body:not(.sidebar-hidden) .sidebar {
+    transform: translateX(0);
+    box-shadow: 18px 0 45px rgba(16, 24, 40, .12);
+}
+
+/* Hilangkan toggle lama kalau masih ada */
+.sidebar-toggle {
+    display: none !important;
+}
+/* ===============================
+   AUTO-HIDE SIDEBAR WITH HAMBURGER
+   =============================== */
+
+.sidebar {
+    transition: transform .28s ease, box-shadow .28s ease;
+    z-index: 999;
+}
+
+.main-content {
+    transition: margin-left .28s ease, padding-left .28s ease;
+}
+
+/* Saat sidebar disembunyikan */
+body.sidebar-hidden .sidebar {
+    transform: translateX(calc(-100% + 0px));
+    box-shadow: none;
+}
+
+/* Konten melebar saat sidebar hilang */
+body.sidebar-hidden .main-content {
+    margin-left: 0 !important;
+    padding-left: 38px !important;
+}
+
+/* Saat sidebar muncul, konten balik normal */
+body:not(.sidebar-hidden) .main-content {
+    margin-left: var(--sidebar-width);
+}
+
+/* Hamburger handle */
+.sidebar-handle {
+    position: fixed;
+    top: 26px;
+    right: -56px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(0, 0, 143, .16);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 14px 30px rgba(16, 24, 40, .14);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: .22s ease;
+}
+
+.sidebar-handle span {
+    display: block;
+    width: 19px;
+    height: 2px;
+    background: #00008F;
+    border-radius: 999px;
+}
+
+.sidebar-handle:hover {
+    transform: translateX(4px);
+    border-color: rgba(255, 23, 33, .35);
+    box-shadow: 0 18px 34px rgba(16, 24, 40, .18);
+}
+
+body:not(.sidebar-hidden) .sidebar-handle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hilangkan indikator garis lama kalau masih ada */
+body.sidebar-hidden .sidebar::after {
+    display: none !important;
+}
+
+.sidebar-hover-hint {
+    display: none !important;
+}
+
+.sidebar-toggle {
+    display: none !important;
+}
+
+/* Biar sidebar muncul di atas konten */
+body:not(.sidebar-hidden) .sidebar {
+    transform: translateX(0);
+    box-shadow: 18px 0 45px rgba(16, 24, 40, .12);
+}
+
+/* Mobile: sidebar tetap normal */
+@media (max-width: 980px) {
+    body.sidebar-hidden .sidebar {
+        transform: none !important;
+    }
+
+    body.sidebar-hidden .main-content,
+    body:not(.sidebar-hidden) .main-content {
+        margin-left: 0 !important;
+        padding-left: 18px !important;
+    }
+
+    .sidebar-handle {
+        display: none !important;
+    }
+}
+/* ===============================
+   FIX HAMBURGER BIAR NGGAK MOTONG CONTENT
+   =============================== */
+
+/* Saat sidebar hidden, beri ruang kecil di kiri untuk hamburger */
+body.sidebar-hidden .main-content {
+    margin-left: 0 !important;
+    padding-left: 72px !important;
+    padding-right: 38px !important;
+}
+
+/* Posisi hamburger lebih rapi, tidak nempel dan tidak motong header */
+.sidebar-handle {
+    position: fixed !important;
+    top: 28px !important;
+    left: 18px !important;
+    right: auto !important;
+    width: 44px !important;
+    height: 44px !important;
+    z-index: 2000 !important;
+}
+
+/* Saat sidebar muncul, hamburger ikut hilang */
+body:not(.sidebar-hidden) .sidebar-handle {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Sidebar tetap muncul dari kiri */
+body.sidebar-hidden .sidebar {
+    transform: translateX(-100%) !important;
+}
+
+/* Saat sidebar muncul, content kembali normal */
+body:not(.sidebar-hidden) .main-content {
+    margin-left: var(--sidebar-width) !important;
+    padding-left: 38px !important;
+}
+/* ===============================
+   AUTO-HIDE SIDEBAR - FIXED
+   Sidebar muncul TANPA nutup konten
+   =============================== */
+
+:root {
+    --sidebar-width: 260px;
+    --content-gap: 24px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    z-index: 999;
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+
+/* Main content default */
+.main-content {
+    min-height: 100vh;
+    transition: margin-left .28s ease, padding .28s ease;
+    padding: 28px 32px 40px;
+}
+
+/* Saat sidebar hidden */
+body.sidebar-hidden .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+}
+
+body.sidebar-hidden .main-content {
+    margin-left: 0 !important;
+    padding-left: 84px !important;   /* ruang untuk hamburger */
+    padding-right: 32px !important;
+}
+
+/* Saat sidebar muncul */
+body:not(.sidebar-hidden) .sidebar {
+    transform: translateX(0);
+    box-shadow: 18px 0 45px rgba(16, 24, 40, .12);
+}
+
+body:not(.sidebar-hidden) .main-content {
+    margin-left: calc(var(--sidebar-width) + var(--content-gap)) !important;
+    padding-left: 16px !important;
+    padding-right: 32px !important;
+}
+
+/* Hamburger handle */
+.sidebar-handle {
+    position: fixed;
+    top: 24px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(0, 0, 143, .14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 14px 30px rgba(16, 24, 40, .14);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    z-index: 1200;
+    transition: .22s ease;
+}
+
+.sidebar-handle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #00008F;
+    border-radius: 999px;
+}
+
+.sidebar-handle:hover {
+    transform: translateX(3px);
+    border-color: rgba(255, 23, 33, .35);
+    box-shadow: 0 18px 34px rgba(16, 24, 40, .18);
+}
+
+/* Saat sidebar terbuka, hamburger hilang */
+body:not(.sidebar-hidden) .sidebar-handle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Matikan elemen lama kalau masih ada */
+.sidebar-hover-hint,
+.sidebar-toggle {
+    display: none !important;
+}
+
+body.sidebar-hidden .sidebar::after {
+    display: none !important;
+}
+
+/* Mobile / tablet */
+@media (max-width: 980px) {
+    .sidebar {
+        width: min(82vw, 300px);
+    }
+
+    body.sidebar-hidden .main-content,
+    body:not(.sidebar-hidden) .main-content {
+        margin-left: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .sidebar-handle {
+        top: 18px;
+        left: 14px;
+    }
+}
+/* ===============================
+   SIDEBAR AUTO HIDE + STRIP 3
+   =============================== */
+
+:root {
+    --sidebar-width: 290px;
+    --content-gap: 22px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    z-index: 999;
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+
+/* Sidebar hidden */
+body.sidebar-hidden .sidebar {
+    transform: translateX(-100%) !important;
+    box-shadow: none !important;
+}
+
+/* Sidebar muncul */
+body:not(.sidebar-hidden) .sidebar {
+    transform: translateX(0) !important;
+    box-shadow: 18px 0 45px rgba(16, 24, 40, .12);
+}
+
+/* Main content saat sidebar hidden */
+body.sidebar-hidden .main-content {
+    margin-left: 0 !important;
+    padding-left: 84px !important;
+    padding-right: 38px !important;
+}
+
+/* Main content saat sidebar muncul, biar nggak nutup Total GWP */
+body:not(.sidebar-hidden) .main-content {
+    margin-left: calc(var(--sidebar-width) + var(--content-gap)) !important;
+    padding-left: 16px !important;
+    padding-right: 38px !important;
+}
+
+/* Tombol strip 3 */
+.sidebar-handle {
+    position: fixed;
+    top: 28px;
+    left: 18px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(0, 0, 143, .14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 14px 30px rgba(16, 24, 40, .14);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    z-index: 1200;
+    transition: .22s ease;
+}
+
+.sidebar-handle span {
+    display: block;
+    width: 19px;
+    height: 2px;
+    background: #00008F;
+    border-radius: 999px;
+}
+
+.sidebar-handle:hover {
+    transform: translateX(3px);
+    border-color: rgba(255, 23, 33, .36);
+    box-shadow: 0 18px 34px rgba(16, 24, 40, .18);
+}
+
+/* Kalau sidebar muncul, tombol strip 3 hilang */
+body:not(.sidebar-hidden) .sidebar-handle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Matikan sisa style lama */
+.sidebar-hover-hint,
+.sidebar-toggle {
+    display: none !important;
+}
+
+body.sidebar-hidden .sidebar::after {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+    .sidebar {
+        width: min(82vw, 300px);
+    }
+
+    body.sidebar-hidden .main-content,
+    body:not(.sidebar-hidden) .main-content {
+        margin-left: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .sidebar-handle {
+        top: 18px;
+        left: 14px;
+    }
+}

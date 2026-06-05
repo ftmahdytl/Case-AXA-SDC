@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <title>{{ page_title }} · AXA Portfolio Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <aside class="sidebar">
+
+<body class="sidebar-hidden">
+
+    <button class="sidebar-handle" id="sidebarHandle" type="button" aria-label="Open sidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <aside class="sidebar" id="sidebar">
         <div class="brand-panel">
             <img src="{{ url_for('static', filename='img/axa-logo.png') }}" alt="AXA logo">
             <div class="brand-copy">
@@ -43,11 +54,47 @@
                 <h1>{{ page_title }}</h1>
                 <p>{{ page_subtitle }}</p>
             </div>
-            <div class="data-pill">{{ data_status }}</div>
         </header>
 
         {% block content %}{% endblock %}
     </main>
+
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const sidebarHandle = document.getElementById("sidebarHandle");
+
+        let hideTimer = null;
+
+        function showSidebar() {
+            clearTimeout(hideTimer);
+            document.body.classList.remove("sidebar-hidden");
+            setTimeout(() => window.dispatchEvent(new Event("resize")), 280);
+        }
+
+        function hideSidebar() {
+            hideTimer = setTimeout(() => {
+                document.body.classList.add("sidebar-hidden");
+                setTimeout(() => window.dispatchEvent(new Event("resize")), 280);
+            }, 260);
+        }
+
+        sidebarHandle.addEventListener("mouseenter", showSidebar);
+        sidebarHandle.addEventListener("click", showSidebar);
+
+        sidebar.addEventListener("mouseenter", showSidebar);
+        sidebar.addEventListener("mouseleave", hideSidebar);
+
+        document.addEventListener("mousemove", function(event) {
+            if (event.clientX <= 24) {
+                showSidebar();
+            }
+        });
+
+        window.addEventListener("load", function() {
+            document.body.classList.add("sidebar-hidden");
+            setTimeout(() => window.dispatchEvent(new Event("resize")), 320);
+        });
+    </script>
 
     {% block scripts %}{% endblock %}
 </body>
