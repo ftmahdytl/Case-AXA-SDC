@@ -1,16 +1,42 @@
 {% extends "base.html" %}
+
 {% block content %}
 <section class="strategy-grid client">
+
     {% for item in strategy_cards %}
     <div class="strategy-card">
-        <div class="strategy-top"><div><span>{{ item.cob }}</span><h3>{{ item.strategy }}</h3></div><b class="priority {{ item.priority|lower }}">{{ item.priority }}</b></div>
+
+        <div class="strategy-top">
+            <div>
+                <span>#{{ item.rank }} • {{ item.cob }}</span>
+                <h3>{{ item.strategy }}</h3>
+            </div>
+
+            <b class="priority {{ item.priority|lower|replace(' ','-') }}">
+                {{ item.priority }}
+            </b>
+        </div>
+
         <p class="label-pill inline">{{ item.label }}</p>
-        <h4>Business read</h4>
+
+        <h4>Business Read</h4>
         <p>{{ item.business_read }}</p>
-        <h4>Recommended action</h4>
+
+        <div class="strategy-metrics">
+            <span>{{ item.insight }}</span>
+        </div>
+
+        <h4>Recommended Action</h4>
         <p>{{ item.action }}</p>
-        <div class="strategy-metrics"><span>Score {{ item.score }}</span><span>Margin {{ item.margin }}</span><span>LR {{ item.loss_ratio }}</span></div>
+
+        <div class="strategy-metrics">
+            <span>Score {{ item.score }}</span>
+            <span>Margin {{ item.margin }}</span>
+            <span>LR {{ item.loss_ratio }}</span>
+        </div>
+
     </div>
     {% endfor %}
+
 </section>
 {% endblock %}
