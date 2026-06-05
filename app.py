@@ -180,9 +180,119 @@ def make_bar(df, x, y, title, x_title, y_title, color_col=None, horizontal=True,
     return plot_to_json(fig, height)
 
 
-def chart_priority(df, key="COB", title="Business priority ranking"):
-    d = df.sort_values("COMPOSITE_SCORE", ascending=True).tail(10)
-    return make_bar(d, "COMPOSITE_SCORE", key, title, "Priority score", key, "SEGMENT_LABEL_CLEAN", True, "", 460)
+def chart_priority(df, category_col, title):
+    d = df.copy().sort_values("COMPOSITE_SCORE", ascending=True)
+
+    label_col = "SEGMENT_LABEL_CLEAN" if "SEGMENT_LABEL_CLEAN" in d.columns else "SEGMENT_LABEL"
+
+    color_map = {
+        "STAR": "#2563EB",
+        "NICHE": "#FF1721",
+        "VOLUME TRAP": "#00008F",
+        "REVIEW": "#64748B",
+        "UNDERPERFORMER": "#070B2B",
+    }
+
+    fig = px.bar(
+        d,
+        x="COMPOSITE_SCORE",
+        y=category_col,
+        orientation="h",
+        color=label_col,
+        color_discrete_map=color_map,
+        text=d["COMPOSITE_SCORE"].round(1),
+        title=None,
+        custom_data=[
+            "UNDERWRITING_MARGIN_PCT",
+            "LOSS_RATIO_PCT",
+            "GWP_CONTRIBUTION_PCT",
+            label_col
+        ]
+    )
+
+    fig.update_traces(
+        textposition="outside",
+        cliponaxis=False,
+        textfont=dict(
+            family="Inter, Arial, sans-serif",
+            size=12,
+            color="#06113E"
+        ),
+        marker=dict(
+            line=dict(width=0),
+            opacity=0.96
+        ),
+        hovertemplate=(
+            "<b>%{y}</b><br>"
+            "Priority score: <b>%{x:.1f}</b><br>"
+            "Margin: %{customdata[0]:.1f}%<br>"
+            "Loss ratio: %{customdata[1]:.1f}%<br>"
+            "GWP share: %{customdata[2]:.1f}%<br>"
+            "Label: %{customdata[3]}<extra></extra>"
+        )
+    )
+
+    fig.update_layout(
+    title=dict(
+        text="<b>Segment Priority Ranking</b>",
+        x=0.02,
+        xanchor="left",
+        y=0.96,
+        font=dict(
+            family="Inter, Arial, sans-serif",
+            size=20,
+            color="#06113E"
+        )
+    ),
+
+    height=455,
+    bargap=0.26,
+    showlegend=True,
+
+    legend=dict(
+        title=None,
+        orientation="h",
+        yanchor="top",
+        y=-0.22,
+        xanchor="center",
+        x=0.5,
+        font=dict(
+            family="Inter, Arial, sans-serif",
+            size=12,
+            color="#344054"
+        ),
+        itemwidth=90
+    ),
+
+    xaxis=dict(
+        title=dict(
+            text="Priority score",
+            font=dict(size=12, color="#344054")
+        ),
+        showgrid=True,
+        gridcolor="rgba(148, 163, 184, 0.22)",
+        zeroline=False,
+        range=[0, max(d["COMPOSITE_SCORE"].max() * 1.10, 90)],
+        tickfont=dict(size=12, color="#475467")
+    ),
+
+    yaxis=dict(
+        title=None,
+        tickfont=dict(size=12, color="#06113E"),
+        categoryorder="array",
+        categoryarray=d[category_col].tolist()
+    ),
+
+    margin=dict(l=70, r=50, t=65, b=110),
+    plot_bgcolor="rgba(0,0,0,0)",
+    paper_bgcolor="rgba(0,0,0,0)",
+    font=dict(
+        family="Inter, Arial, sans-serif",
+        color="#101828"
+    )
+)
+
+    return plot_to_json(fig)
 
 
 def chart_profit_leak(df):
