@@ -3,30 +3,7 @@
 
 {% block content %}
 
-<section class="section segment-opening">
-    <div class="opening-card">
-        <p class="eyebrow">Segment priority</p>
-        <h2>Segmen mana yang paling layak diprioritaskan?</h2>
-        <p>
-            Analisis ini tidak hanya mencari segmen dengan premi terbesar, tetapi mencari segmen
-            yang memberikan kombinasi terbaik antara kontribusi bisnis, margin underwriting,
-            dan tingkat risiko klaim. Dengan pendekatan ini, prioritas bisnis dapat diarahkan
-            ke segmen yang bukan hanya besar, tetapi juga sehat dan berkelanjutan.
-        </p>
-    </div>
-
-    <div class="opening-note">
-        <h3>Key message</h3>
-        <p>
-            Segmen dengan skor tertinggi menjadi kandidat utama untuk dikembangkan, sedangkan
-            segmen dengan volume besar tetapi margin rendah perlu ditinjau ulang dari sisi pricing,
-            risk selection, dan claim control.
-        </p>
-    </div>
-</section>
-
-
-<section class="top-grid">
+<section class="top-grid segment-top-grid">
     {% for row in top_segments %}
     <div class="top-card rank-{{ loop.index }}">
         <div class="rank-badge">#{{ loop.index }}</div>
@@ -60,16 +37,18 @@
 
         {% if loop.index == 1 %}
         <div class="segment-card-insight">
-            Segmen ini menjadi prioritas utama karena memiliki kombinasi paling kuat antara
-            kontribusi premi, margin, dan risiko klaim.
+            Prioritas utama untuk dikembangkan karena memiliki kombinasi paling kuat antara
+            kontribusi premi, margin underwriting, dan risiko klaim.
         </div>
         {% elif loop.index == 2 %}
         <div class="segment-card-insight">
-            Segmen ini menunjukkan performa sehat dan dapat menjadi kandidat pertumbuhan berikutnya.
+            Kandidat pertumbuhan berikutnya karena performanya relatif sehat dan masih memiliki
+            ruang untuk dikembangkan.
         </div>
         {% else %}
         <div class="segment-card-insight">
-            Segmen ini menarik untuk dikembangkan secara selektif dengan tetap menjaga kualitas risiko.
+            Menarik untuk dikembangkan secara selektif, dengan tetap menjaga kualitas risiko dan
+            kontrol underwriting.
         </div>
         {% endif %}
     </div>
@@ -78,10 +57,14 @@
 
 
 <section class="section">
-    <div class="section-header compact segment-ranking-header">
+    <div class="ranking-title-card">
         <div>
             <p class="eyebrow">Priority ranking</p>
             <h2>Business priority by segment</h2>
+            <p>
+                Ranking ini membantu menentukan segmen mana yang layak diprioritaskan berdasarkan
+                kombinasi kontribusi bisnis, profitabilitas, dan risiko klaim.
+            </p>
         </div>
     </div>
 
@@ -95,27 +78,31 @@
             <h3>Apa arti ranking ini untuk keputusan bisnis?</h3>
 
             <p>
-                Grafik ini menunjukkan urutan prioritas segmen berdasarkan kombinasi antara kontribusi premi,
-                margin underwriting, loss ratio, dan kualitas performa secara keseluruhan. Semakin tinggi
-                skornya, semakin menarik segmen tersebut untuk dipertahankan atau dikembangkan.
+                Grafik ini menunjukkan urutan prioritas segmen berdasarkan kombinasi kontribusi premi,
+                margin underwriting, loss ratio, dan kualitas performa secara keseluruhan.
+                Semakin tinggi skornya, semakin menarik segmen tersebut untuk dipertahankan atau
+                dikembangkan.
             </p>
 
             <div class="talking-point">
                 <strong>Insight utama:</strong>
-                segmen dengan skor tertinggi dapat menjadi kandidat pertumbuhan karena performanya tidak hanya
-                didukung oleh premi, tetapi juga oleh margin dan risiko klaim yang relatif lebih sehat.
+                segmen dengan skor tertinggi dapat menjadi kandidat pertumbuhan karena performanya
+                tidak hanya didukung oleh premi, tetapi juga oleh margin dan risiko klaim yang relatif
+                lebih sehat.
             </div>
 
             <div class="talking-point soft">
                 <strong>Catatan bisnis:</strong>
-                segmen dengan premi besar belum tentu menjadi segmen terbaik. Jika klaimnya tinggi atau margin
-                underwriting rendah, segmen tersebut justru dapat menjadi beban bagi profitabilitas portfolio.
+                segmen dengan premi besar belum tentu menjadi segmen terbaik. Jika klaimnya tinggi
+                atau margin underwriting rendah, segmen tersebut justru dapat menekan profitabilitas
+                portfolio.
             </div>
 
             <div class="talking-point">
                 <strong>Implikasi keputusan:</strong>
-                segmen STAR dapat diprioritaskan untuk scale-up, segmen NICHE bisa dikembangkan secara selektif,
-                sedangkan segmen VOLUME TRAP perlu diperbaiki dulu sebelum didorong untuk pertumbuhan.
+                segmen STAR dapat diprioritaskan untuk scale-up, segmen NICHE dapat dikembangkan
+                secara selektif, sedangkan segmen VOLUME TRAP perlu diperbaiki sebelum didorong untuk
+                pertumbuhan.
             </div>
         </div>
     </div>
@@ -153,15 +140,20 @@
 
 
 <section class="section">
-    <div class="section-header">
+    <div class="table-title-card">
         <div>
             <p class="eyebrow">Client table</p>
             <h2>Segment decision table</h2>
+            <p>
+                Ringkasan indikator utama per segmen untuk mendukung keputusan bisnis:
+                mana yang layak dikembangkan, dipertahankan, atau diperbaiki.
+            </p>
         </div>
-        <p>
-            Tabel ini merangkum indikator utama per segmen agar client bisa melihat dasar
-            keputusan bisnis tanpa perlu membaca tabel teknis yang terlalu detail.
-        </p>
+
+        <div class="table-mini-note">
+            <strong>Focus:</strong>
+            Score tinggi, margin sehat, dan loss ratio terkendali.
+        </div>
     </div>
 
     <div class="table-wrapper">
