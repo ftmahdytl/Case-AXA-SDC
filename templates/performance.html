@@ -1,21 +1,137 @@
 {% extends "base.html" %}
 {% from "_components.html" import interpretation_box, chart_card %}
+
 {% block content %}
+
+<!-- Executive Highlights -->
+
+<section class="kpi-grid">
+
+    <div class="kpi-card accent-blue">
+        <span>🏆 Top Performing Segment</span>
+        <strong>COB 9</strong>
+        <p>Highest underwriting margin with healthy risk profile.</p>
+    </div>
+
+    <div class="kpi-card">
+        <span>⚠ Risk Watchlist</span>
+        <strong>COB 4</strong>
+        <p>Loss Ratio above 100%, requiring immediate review.</p>
+    </div>
+
+    <div class="kpi-card accent-red">
+        <span>📉 Profit Leakage</span>
+        <strong>COB 6</strong>
+        <p>Largest negative underwriting margin in the portfolio.</p>
+    </div>
+
+</section>
+
+
+<!-- Executive Summary -->
+
+<section class="executive-note">
+
+    <strong>Executive Takeaway</strong>
+
+    <p>
+        COB 9 emerges as the strongest segment based on profitability,
+        business contribution, and controlled claim experience.
+        Meanwhile, COB 4 and COB 6 require underwriting, pricing,
+        and risk management review due to elevated claim pressure
+        and deteriorating margins.
+    </p>
+
+</section>
+
+
+<!-- Main Analysis -->
+
 <section class="chart-grid two">
-    <div style="display:flex;flex-direction:column;gap:30px">
+
+    <div class="performance-column">
+
         {{ chart_card('profitChart') }}
+
         {{ interpretation_box(profit_interpretation) }}
+
     </div>
-    <div style="display:flex;flex-direction:column;gap:30px">
+
+    <div class="performance-column">
+
         {{ chart_card('riskChart') }}
+
         {{ interpretation_box(risk_interpretation) }}
+
     </div>
+
 </section>
+
+
+<!-- Presentation Notes -->
+
 <section class="section business-note">
-    <h2>How to present this page</h2>
-    <p>Gunakan halaman ini untuk menjelaskan bahwa portfolio yang baik bukan hanya yang premi masuknya besar. Segmen yang sehat adalah segmen yang masih menyisakan margin setelah klaim dan biaya utama diperhitungkan.</p>
+
+    <h2>How to Present This Page</h2>
+
+    <p>
+        This page demonstrates that a healthy insurance portfolio is not
+        determined solely by premium volume. The most valuable segment is
+        one that maintains strong underwriting profitability while keeping
+        claim costs under control.
+    </p>
+
+    <ul>
+        <li>
+            Underwriting Margin indicates where profit is generated or lost.
+        </li>
+
+        <li>
+            Loss Ratio measures how much premium is consumed by claims.
+        </li>
+
+        <li>
+            Segments with high profitability and manageable risk should be
+            prioritized for growth.
+        </li>
+
+        <li>
+            Segments with persistent losses require underwriting and pricing
+            intervention.
+        </li>
+    </ul>
+
 </section>
+
 {% endblock %}
+
+
 {% block scripts %}
-<script>const config={responsive:true,displayModeBar:false};const profit={{ profit_chart|safe }};const risk={{ risk_chart|safe }};Plotly.newPlot('profitChart',profit.data,profit.layout,config);Plotly.newPlot('riskChart',risk.data,risk.layout,config);</script>
+
+<script>
+
+const config = {
+    responsive: true,
+    displayModeBar: false
+};
+
+const profit = {{ profit_chart|safe }};
+const risk = {{ risk_chart|safe }};
+
+Plotly.newPlot(
+    'profitChart',
+    profit.data,
+    profit.layout,
+    config
+);
+
+Plotly.newPlot(
+    'riskChart',
+    risk.data,
+    risk.layout,
+    config
+);
+
+</script>
+
 {% endblock %}
